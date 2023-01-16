@@ -1,4 +1,7 @@
+import { SearchWeatherButton } from "./SearchWeatherButton";
 import "./top.css";
+import { TopWeatherDetails } from "./TopWeatherDetails";
+import { WeatherDetails } from "./WeatherDetails";
 
 const Top = () => {
   return (
@@ -26,28 +29,44 @@ const Top = () => {
       </div>
       <div className="Top-right">
         <div className="Search-bar-container">
-          <input id="given-location" type="text" placeholder="Enter location" />
+          <input
+            id="given-location"
+            type="text"
+            placeholder="Enter location"
+            onKeyUp={(e) => {
+              if (e.code === "Enter") {
+                console.log("Here is a place for a function");
+              }
+            }}
+          />
+          <SearchWeatherButton />
         </div>
         <div className="Top-right-weather-details">
-          <div className="Left-details">
-            <div className="details">
-              Rain:<span>f`</span>
-            </div>
-            <div className="details">
-              Humidity:<span>dsg</span>
-            </div>
-            <div className="details">
-              Wind speed:<span>gdsg</span>
-            </div>
-          </div>
-          <div className="Right-details">
-            <div className="details">
-              Pressure:<span>sdg</span>
-            </div>
-            <div className="details">
-              Visibility:<span>sdg</span>
-            </div>
-          </div>
+          <TopWeatherDetails
+            detailsToBeRendered={[
+              { parameter: "Rain", parameterValue: 12, parameterUnit: "%" },
+              { parameter: "Humidity", parameterValue: 75, parameterUnit: "%" },
+              {
+                parameter: "Wind speed",
+                parameterValue: 75,
+                parameterUnit: "%",
+              },
+            ]}
+          />
+          <TopWeatherDetails
+            detailsToBeRendered={[
+              {
+                parameter: "Pressure",
+                parameterValue: 1020,
+                parameterUnit: "hPa",
+              },
+              {
+                parameter: "visibility",
+                parameterValue: 12,
+                parameterUnit: "km",
+              },
+            ]}
+          />
         </div>
       </div>
     </div>
