@@ -1,9 +1,9 @@
-import { SearchWeatherButton } from "./SearchWeatherButton";
+import { SearchWeatherButton } from "../buttons/SearchWeatherButton";
 import "./top.css";
-import { TopWeatherDetails } from "./TopWeatherDetails";
-import { WeatherDetails } from "./WeatherDetails";
+import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
+import { SearchForTheCity } from "../inputs/SearchForTheCity";
 
-const Top = () => {
+const Top = (props: any) => {
   return (
     <div className="Top">
       <div className="Top-left">
@@ -29,16 +29,7 @@ const Top = () => {
       </div>
       <div className="Top-right">
         <div className="Search-bar-container">
-          <input
-            id="given-location"
-            type="text"
-            placeholder="Enter location"
-            onKeyUp={(e) => {
-              if (e.code === "Enter") {
-                console.log("Here is a place for a function");
-              }
-            }}
-          />
+          <SearchForTheCity widthVal="none" widthUnit="" flex={1} />
           <SearchWeatherButton />
         </div>
         <div className="Top-right-weather-details">
@@ -49,7 +40,7 @@ const Top = () => {
               {
                 parameter: "Wind speed",
                 parameterValue: 75,
-                parameterUnit: "%",
+                parameterUnit: "",
               },
             ]}
           />
