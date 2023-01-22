@@ -87,6 +87,7 @@
 
 .Search-bar-container {
   display: flex;
+  flex-direction: row;
   height: clamp(20px, 10vw, 40%);
   box-sizing: border-box;
   align-items: flex-end;
@@ -94,12 +95,18 @@
 
 input {
   text-align: end;
-  width: 100%;
+  flex: 1;
   padding: 0px 5px 5px 5px;
   background-color: transparent;
   outline: none;
   border: none;
   border-bottom: solid white 1px;
+}
+
+.Search-button {
+  color: black;
+  padding: 5px;
+  margin-left: 10px;
 }
 
 .Top-right-weather-details {
@@ -110,8 +117,7 @@ input {
   background-color: rgb(28, 38, 84);
   border-radius: 10px;
 }
-.Left-details,
-.Right-details {
+.Top-weather-right-details {
   width: 50%;
 }
 
