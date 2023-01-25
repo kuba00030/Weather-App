@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { DataForApi } from "../../API-calls/apiData";
+
 interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
@@ -15,6 +17,8 @@ const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
   const handleValueChange = (e: any) => {
     setCity(e.target.value);
   };
+  const dataForApi = new DataForApi(City);
+
   return (
     <input
       style={{ width: `${widthVal}${widthUnit}`, flex: flex }}
@@ -26,7 +30,8 @@ const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
       onKeyUp={(e) => {
         if (e.code === "Enter") {
           console.log("Here is a place for a function");
-          console.log(City);
+
+          dataForApi.returnOnSerachData();
         }
       }}
     />
@@ -34,3 +39,5 @@ const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
 };
 
 export { SearchForTheCity };
+
+//przekazac funkcje w propsie zeby zwracala wartosc do stanu w Top a nie w inpucie
