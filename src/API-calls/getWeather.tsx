@@ -1,21 +1,68 @@
 class GetWeather {
-  async getWeatherOnSearch(apiUrl: string, city: string, apiKey: string) {
-    return await fetch(`${apiUrl}${city}${apiKey}`)
+  async getCurrentWeatherOnSearch(currentWLink: string) {
+    return await fetch(currentWLink)
+      .then((res) => res.json())
+      .then((weatherData) => {
+        let currentWeatherOnSearch = {
+          clouds: weatherData.clouds.all,
+          temperature: weatherData.main.temp,
+          feelsLike: weatherData.main.feels_like,
+          pressure: weatherData.main.pressure,
+          huimdity: weatherData.main.humidity,
+          visibility: weatherData.visibility,
+          wind: weatherData.wind.speed,
+          description: weatherData.weather.description,
+          icon: weatherData.weather.icon,
+        };
+        return currentWeatherOnSearch;
+      });
+  }
+
+  async getHourlyWeatherOnSearch(hourlyWlink: string) {
+    return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
         return weatherData;
       });
   }
 
-  async getWeatherOnLoad(apiUrl: string, apiKey: string, coords: any) {
-    return await fetch(
-      `${apiUrl}${coords.latitude}&lon=${coords.longitude}&appid=${apiKey}`
-    )
+  async getCurrentWeatherOnLoad(currentWlink: string) {
+    return await fetch(currentWlink)
       .then((res) => res.json())
       .then((weatherData) => {
         return weatherData;
       });
+  }
+
+  async getHourlyWeatherOnLoad(hourlyWlink: string) {
+    return await fetch(hourlyWlink)
+      .then((res) => res.json())
+      .then((weatherData) => {
+        return weatherData;
+      });
+  }
+
+  async setOnLoadWeather(currentWlink: string, hourWlink: string) {
+    const currentWeatherOnLoad = await this.getCurrentWeatherOnLoad(
+      currentWlink
+    );
+
+    const hourlyOnLoad = await this.getHourlyWeatherOnLoad(hourWlink);
+    const hourlyWeatherOnLoad = hourlyOnLoad.list.splice(0, 9);
+
+    return { currentWeatherOnLoad, hourlyWeatherOnLoad };
+  }
+
+  async setOnSearchWeather(currentWLink: string, hourlyWlink: string) {
+    const currentWeatherOnLoad = await this.getCurrentWeatherOnSearch(
+      currentWLink
+    );
+    const hourlyOnSearch = await this.getHourlyWeatherOnSearch(hourlyWlink);
+    const hourlyWeatherOnSearch = hourlyOnSearch.list.splice(0, 8);
+
+    return { currentWeatherOnLoad, hourlyWeatherOnSearch };
   }
 }
+const getWeather = new GetWeather();
 
-export { GetWeather };
+export { getWeather };

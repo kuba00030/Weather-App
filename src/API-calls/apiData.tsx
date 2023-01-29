@@ -1,37 +1,32 @@
 class DataForApi {
   api_key: string = `&appid=f57f384bac799e8a6807404b76deb377`;
-  api_url_on_search: string = `https://api.openweathermap.org/data/2.5/forecast?q=`;
-  locationCoords: any = {
-    latitude: 0,
-    longitude: 0,
-  };
+  api_url: string = `https://api.openweathermap.org/data/2.5/`;
+  currentLocation: any;
   cityForSerach: string = "";
 
-  constructor(city: string) {
+  setCurrentLocation(coords: any) {
+    this.currentLocation = coords;
+  }
+
+  setCityForSearch(city: any) {
     this.cityForSerach = city;
   }
 
-  setLocationCoords() {
-    navigator.geolocation.getCurrentPosition((location) => {
-      // this.locationCoords.latitude = location.coords.latitude;
-      // this.locationCoords.longitude = location.coords.longitude;
-      return location.coords.latitude, location.coords.longitude;
-    });
+  returnOnSerachCurrentWeatherLink() {
+    return `${this.api_url}weather?q=${this.cityForSerach}${this.api_key}`;
   }
 
-  returnOnSerachData() {
-    console.log(this.cityForSerach, this.api_key, this.api_url_on_search);
-    return this.cityForSerach, this.api_key, this.api_url_on_search;
-  }
-  async returnOnLoadData(cords: any) {
-    // return this.locationCoords;
-    const coords = await cords();
-    console.log(await coords);
+  returnOnSearchHourlyWeatherlink() {
+    return `${this.api_url}forecast?q=${this.cityForSerach}${this.api_key}`;
   }
 
-  showLoc() {
-    console.log(this.cityForSerach);
+  returnOnLoadCurrentWeatherLink() {
+    return `${this.api_url}weather?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}${this.api_key}`;
+  }
+
+  returnOnLoadHourlyWeatherlink() {
+    return `${this.api_url}forecast?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}${this.api_key}`;
   }
 }
-
-export { DataForApi };
+const dataForApi = new DataForApi();
+export { dataForApi };
