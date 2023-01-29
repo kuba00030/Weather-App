@@ -1,23 +1,33 @@
 import React from "react";
 import { useState } from "react";
-import { DataForApi } from "../../API-calls/apiData";
+import { dataForApi } from "../../API-calls/apiData";
+import { getWeather } from "../../API-calls/getWeather";
 
 interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
   flex: string | number;
 }
-
+let onSearchWeatherInput: any;
 const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
   widthVal,
   widthUnit,
   flex,
 }) => {
   const [City, setCity] = useState("");
+  const [OnSearchWeather, setOnSearchWeather] = useState({});
   const handleValueChange = (e: any) => {
     setCity(e.target.value);
   };
-  const dataForApi = new DataForApi(City);
+
+  const setOnSearchWeatherState = async function () {
+    const onSerachWeather = await getWeather.setOnSearchWeather(
+      dataForApi.returnOnSerachCurrentWeatherLink(),
+      dataForApi.returnOnSearchHourlyWeatherlink()
+    );
+    setOnSearchWeather(onSerachWeather);
+  };
+  onSearchWeatherInput = OnSearchWeather;
 
   return (
     <input
@@ -29,15 +39,13 @@ const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
       onChange={handleValueChange}
       onKeyUp={(e) => {
         if (e.code === "Enter") {
-          console.log("Here is a place for a function");
-
-          dataForApi.returnOnSerachData();
+          dataForApi.setCityForSearch(City);
+          setOnSearchWeatherState();
+          console.log(City);
         }
       }}
     />
   );
 };
 
-export { SearchForTheCity };
-
-//przekazac funkcje w propsie zeby zwracala wartosc do stanu w Top a nie w inpucie
+export { SearchForTheCity, onSearchWeatherInput };

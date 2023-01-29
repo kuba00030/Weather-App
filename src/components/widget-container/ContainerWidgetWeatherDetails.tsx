@@ -1,5 +1,4 @@
 import { WeatherDetails } from "../widgets/WidgetWeatherDetails";
-export { TopWeatherDetails };
 
 interface TopWeatherDetailstProps {
   detailsToBeRendered: {
@@ -34,3 +33,4 @@ const TopWeatherDetails: React.FC<TopWeatherDetailstProps> = ({
   });
   return <div className="Top-weather-right-details">{widgets}</div>;
 };
+export { TopWeatherDetails };

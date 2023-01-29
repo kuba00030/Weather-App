@@ -2,8 +2,8 @@ import { SearchWeatherButton } from "../buttons/SearchWeatherButton";
 import "./top.css";
 import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
 import { SearchForTheCity } from "../inputs/SearchForTheCity";
-import { useState } from "react";
-const Top = (props: any) => {
+
+const Top = () => {
   return (
     <div className="Top">
       <div className="Top-left">
