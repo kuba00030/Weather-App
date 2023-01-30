@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { dataForApi } from "./API-calls/apiData";
 import { getWeather } from "./API-calls/getWeather";
 import "./App.css";
+<<<<<<< HEAD
 import { onSearchWeatherInput } from "./components/inputs/SearchForTheCity";
+=======
+import { Mid } from "./components/mid/Mid";
+>>>>>>> master
 import Top from "./components/top/Top";
 
 function App() {
@@ -33,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <Top />
+      <Mid />
     </div>
   );
 }
