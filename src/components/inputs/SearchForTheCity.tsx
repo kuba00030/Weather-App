@@ -1,33 +1,26 @@
 import React from "react";
 import { useState } from "react";
-import { dataForApi } from "../../API-calls/apiData";
-import { getWeather } from "../../API-calls/getWeather";
 
 interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
   flex: string | number;
+  setCityForSearchMethod: any;
+  handleSetStateOnChange: any;
+  handleUpdateWeather: any;
+  updateWeatherData: any;
 }
-let onSearchWeatherInput: any;
-const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
+
+const SearchForTheCity = ({
   widthVal,
   widthUnit,
   flex,
-}) => {
+  setCityForSearchMethod,
+  handleSetStateOnChange,
+  handleUpdateWeather,
+  updateWeatherData,
+}: SearchForTheCityProps) => {
   const [City, setCity] = useState("");
-  const [OnSearchWeather, setOnSearchWeather] = useState({});
-  const handleValueChange = (e: any) => {
-    setCity(e.target.value);
-  };
-
-  const setOnSearchWeatherState = async function () {
-    const onSerachWeather = await getWeather.setOnSearchWeather(
-      dataForApi.returnOnSerachCurrentWeatherLink(),
-      dataForApi.returnOnSearchHourlyWeatherlink()
-    );
-    setOnSearchWeather(onSerachWeather);
-  };
-  onSearchWeatherInput = OnSearchWeather;
 
   return (
     <input
@@ -36,16 +29,22 @@ const SearchForTheCity: React.FC<SearchForTheCityProps> = ({
       type="text"
       placeholder="Enter location"
       value={City}
-      onChange={handleValueChange}
+      onChange={(e) => {
+        handleSetStateOnChange(e, setCity);
+      }}
       onKeyUp={(e) => {
         if (e.code === "Enter") {
-          dataForApi.setCityForSearch(City);
-          setOnSearchWeatherState();
-          console.log(City);
+          setCityForSearchMethod.setCityForSearch(City);
+          handleUpdateWeather(
+            updateWeatherData.updateWeather,
+            updateWeatherData.getWeather,
+            updateWeatherData.dataForApi.returnOnSerachCurrentWeatherLink(),
+            updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink()
+          );
         }
       }}
     />
   );
 };
 
-export { SearchForTheCity, onSearchWeatherInput };
+export { SearchForTheCity };

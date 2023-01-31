@@ -14,6 +14,7 @@ class GetWeather {
           description: weatherData.weather.description,
           icon: weatherData.weather.icon,
         };
+        console.log(currentWeatherOnSearch);
         return currentWeatherOnSearch;
       });
   }
@@ -22,6 +23,7 @@ class GetWeather {
     return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
+        console.log(weatherData);
         return weatherData;
       });
   }
@@ -63,6 +65,5 @@ class GetWeather {
     return { currentWeatherOnLoad, hourlyWeatherOnSearch };
   }
 }
-const getWeather = new GetWeather();
 
-export { getWeather };
+export { GetWeather };

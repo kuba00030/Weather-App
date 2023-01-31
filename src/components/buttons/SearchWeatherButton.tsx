@@ -1,9 +1,17 @@
-const SearchWeatherButton = () => {
+const SearchWeatherButton = ({
+  handleUpdateWeather,
+  updateWeatherData,
+}: any) => {
   return (
     <button
       className="Search-button"
       onClick={() => {
-        console.log("Here is a place for function");
+        handleUpdateWeather(
+          updateWeatherData.updateWeather,
+          updateWeatherData.getWeather,
+          updateWeatherData.dataForApi.returnOnSerachCurrentWeatherLink(),
+          updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink()
+        );
       }}
     >
       Search

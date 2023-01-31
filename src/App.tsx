@@ -1,42 +1,37 @@
 import React, { useState } from "react";
-import { dataForApi } from "./API-calls/apiData";
-import { getWeather } from "./API-calls/getWeather";
+import { DataForApi } from "./API-calls/apiData";
 import "./App.css";
-<<<<<<< HEAD
-import { onSearchWeatherInput } from "./components/inputs/SearchForTheCity";
-=======
-import { Mid } from "./components/mid/Mid";
->>>>>>> master
 import Top from "./components/top/Top";
-
+import { Mid } from "./components/mid/Mid";
+import { GetCoords } from "./API-calls/getCoords";
+import { GetWeather } from "./API-calls/getWeather";
+import { UpdateWeather } from "./API-calls/updateWeather";
 function App() {
   const [Coords, setCoords] = useState({});
-  const [OnLoadWeather, setOnLoadWeather] = useState({});
-  const [OnSearchWeather, setOnSearchWeather] = useState({});
-  const currentLocation = function () {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat: number = position.coords.latitude;
-      let long: number = position.coords.longitude;
-      setCoords({ latitude: lat, longitude: long });
-    });
+  // const [OnLoadWeather, setOnLoadWeather] = useState({});
+  // const [OnSearchWeather, setOnSearchWeather] = useState({});
+  const handleSetStateOnChange = (e: any, setState: any) => {
+    setState(e.target.value);
   };
-
-  const setOnLoadWeatherState = async function () {
-    const onLoadWeather = await getWeather.setOnLoadWeather(
-      dataForApi.returnOnLoadCurrentWeatherLink(),
-      dataForApi.returnOnLoadHourlyWeatherlink()
-    );
-
-    setOnLoadWeather(onLoadWeather);
+  const handleUpdateWeather = (
+    updater: any,
+    sub: any,
+    currentWeatherLink: string,
+    hourlyWeatherLink: string
+  ) => {
+    updater.updateOnSearchWeather(sub, currentWeatherLink, hourlyWeatherLink);
   };
-
-  setOnLoadWeatherState();
-  currentLocation();
-  dataForApi.setCurrentLocation(Coords);
-
+  const dataForApi = new DataForApi();
+  const getWeather = new GetWeather();
+  const updateWeather = new UpdateWeather();
   return (
     <div className="App">
-      <Top />
+      <Top
+        setCityForSearchMethod={dataForApi}
+        handleSetStateOnChange={handleSetStateOnChange}
+        updateWeatherData={{ dataForApi, getWeather, updateWeather }}
+        handleUpdateWeather={handleUpdateWeather}
+      />
       <Mid />
     </div>
   );
