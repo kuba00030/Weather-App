@@ -13,16 +13,10 @@ class DataForApi {
   }
 
   returnOnSerachCurrentWeatherLink() {
-    console.log(
-      `${this.api_url}weather?q=${this.cityForSearch}${this.api_key}`
-    );
     return `${this.api_url}weather?q=${this.cityForSearch}${this.api_key}`;
   }
 
   returnOnSearchHourlyWeatherlink() {
-    console.log(
-      `${this.api_url}forecast?q=${this.cityForSearch}${this.api_key}`
-    );
     return `${this.api_url}forecast?q=${this.cityForSearch}${this.api_key}`;
   }
 

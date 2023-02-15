@@ -1,11 +1,16 @@
 class UpdateWeather {
-  updateOnSearchWeather(
+  async updateOnSearchWeather(
     sub: any,
     currentWeatherLink: string,
-    hourlyWeatherLink: string
+    hourlyWeatherLink: string,
+    setStateMethod: any
   ) {
-    sub.getCurrentWeatherOnSearch(currentWeatherLink);
-    sub.getHourlyWeatherOnSearch(hourlyWeatherLink);
+    let currentWeather = await sub.getCurrentWeatherOnSearch(
+      currentWeatherLink
+    );
+    let hourlyWeather = await sub.getHourlyWeatherOnSearch(hourlyWeatherLink);
+
+    setStateMethod({ currentWeather, hourlyWeather });
   }
 }
 

@@ -4,16 +4,18 @@ import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDet
 import { SearchForTheCity } from "../inputs/SearchForTheCity";
 import React from "react";
 interface TopProps {
-  setCityForSearchMethod: any;
   handleSetStateOnChange: any;
   updateWeatherData: any;
   handleUpdateWeather: any;
+  setOnSearchWeatherState: any;
+  cityState: any;
 }
 const Top: React.FC<TopProps> = ({
-  setCityForSearchMethod,
   handleSetStateOnChange,
   updateWeatherData,
   handleUpdateWeather,
+  setOnSearchWeatherState,
+  cityState,
 }: any) => {
   return (
     <div className="Top">
@@ -44,14 +46,16 @@ const Top: React.FC<TopProps> = ({
             widthVal="none"
             widthUnit=""
             flex={1}
-            setCityForSearchMethod={setCityForSearchMethod}
             handleSetStateOnChange={handleSetStateOnChange}
+            cityState={cityState}
             handleUpdateWeather={handleUpdateWeather}
             updateWeatherData={updateWeatherData}
+            setOnSearchWeatherState={setOnSearchWeatherState}
           />
           <SearchWeatherButton
             handleUpdateWeather={handleUpdateWeather}
             updateWeatherData={updateWeatherData}
+            setOnSearchWeatherState={setOnSearchWeatherState}
           />
         </div>
         <div className="Top-right-weather-details">

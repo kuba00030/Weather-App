@@ -11,10 +11,9 @@ class GetWeather {
           huimdity: weatherData.main.humidity,
           visibility: weatherData.visibility,
           wind: weatherData.wind.speed,
-          description: weatherData.weather.description,
-          icon: weatherData.weather.icon,
+          description: weatherData.weather[0].description,
+          icon: weatherData.weather[0].icon,
         };
-        console.log(currentWeatherOnSearch);
         return currentWeatherOnSearch;
       });
   }
@@ -23,8 +22,8 @@ class GetWeather {
     return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
-        console.log(weatherData);
-        return weatherData;
+        let hourlyWeather = weatherData.list.splice(0, 9);
+        return hourlyWeather;
       });
   }
 

@@ -5,41 +5,43 @@ interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
   flex: string | number;
-  setCityForSearchMethod: any;
+
   handleSetStateOnChange: any;
   handleUpdateWeather: any;
   updateWeatherData: any;
+  setOnSearchWeatherState: any;
+  cityState: any;
 }
 
 const SearchForTheCity = ({
   widthVal,
   widthUnit,
   flex,
-  setCityForSearchMethod,
+
   handleSetStateOnChange,
   handleUpdateWeather,
   updateWeatherData,
+  setOnSearchWeatherState,
+  cityState,
 }: SearchForTheCityProps) => {
-  const [City, setCity] = useState("");
-
   return (
     <input
       style={{ width: `${widthVal}${widthUnit}`, flex: flex }}
       id="given-location"
       type="text"
       placeholder="Enter location"
-      value={City}
       onChange={(e) => {
-        handleSetStateOnChange(e, setCity);
+        handleSetStateOnChange(e);
       }}
+      value={cityState}
       onKeyUp={(e) => {
         if (e.code === "Enter") {
-          setCityForSearchMethod.setCityForSearch(City);
           handleUpdateWeather(
             updateWeatherData.updateWeather,
             updateWeatherData.getWeather,
             updateWeatherData.dataForApi.returnOnSerachCurrentWeatherLink(),
-            updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink()
+            updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink(),
+            setOnSearchWeatherState
           );
         }
       }}
