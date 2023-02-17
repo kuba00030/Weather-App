@@ -3,18 +3,22 @@ class GetWeather {
     return await fetch(currentWLink)
       .then((res) => res.json())
       .then((weatherData) => {
-        let currentWeatherOnSearch = {
+        let currentWeather = {
           clouds: weatherData.clouds.all,
-          temperature: weatherData.main.temp,
-          feelsLike: weatherData.main.feels_like,
+          temperature: Math.round(weatherData.main.temp - 272.15),
+          feelsLike: Math.round(weatherData.main.feels_like - 272.15),
           pressure: weatherData.main.pressure,
-          huimdity: weatherData.main.humidity,
-          visibility: weatherData.visibility,
-          wind: weatherData.wind.speed,
+          humidity: weatherData.main.humidity,
+          visibility: weatherData.visibility / 1000,
+          wind: Math.round(weatherData.wind.speed / 0.6213711922),
           description: weatherData.weather[0].description,
           icon: weatherData.weather[0].icon,
         };
-        return currentWeatherOnSearch;
+        let location = {
+          city: weatherData.name,
+          country: weatherData.sys.country,
+        };
+        return { currentWeather, location };
       });
   }
 
@@ -22,7 +26,8 @@ class GetWeather {
     return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
-        let hourlyWeather = weatherData.list.splice(0, 9);
+        let hourlyWeather = weatherData.list.splice(0, 13);
+        console.log(hourlyWeather);
         return hourlyWeather;
       });
   }
@@ -41,27 +46,6 @@ class GetWeather {
       .then((weatherData) => {
         return weatherData;
       });
-  }
-
-  async setOnLoadWeather(currentWlink: string, hourWlink: string) {
-    const currentWeatherOnLoad = await this.getCurrentWeatherOnLoad(
-      currentWlink
-    );
-
-    const hourlyOnLoad = await this.getHourlyWeatherOnLoad(hourWlink);
-    const hourlyWeatherOnLoad = hourlyOnLoad.list.splice(0, 9);
-
-    return { currentWeatherOnLoad, hourlyWeatherOnLoad };
-  }
-
-  async setOnSearchWeather(currentWLink: string, hourlyWlink: string) {
-    const currentWeatherOnLoad = await this.getCurrentWeatherOnSearch(
-      currentWLink
-    );
-    const hourlyOnSearch = await this.getHourlyWeatherOnSearch(hourlyWlink);
-    const hourlyWeatherOnSearch = hourlyOnSearch.list.splice(0, 8);
-
-    return { currentWeatherOnLoad, hourlyWeatherOnSearch };
   }
 }
 

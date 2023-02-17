@@ -5,10 +5,27 @@ class UpdateWeather {
     hourlyWeatherLink: string,
     setStateMethod: any
   ) {
-    let currentWeather = await sub.getCurrentWeatherOnSearch(
+    let onSearchWeather = await sub.getCurrentWeatherOnSearch(
       currentWeatherLink
     );
-    let hourlyWeather = await sub.getHourlyWeatherOnSearch(hourlyWeatherLink);
+    let onSearchHourlyWeather = await sub.getHourlyWeatherOnSearch(
+      hourlyWeatherLink
+    );
+
+    setStateMethod({
+      location: onSearchWeather.location,
+      currentWeather: onSearchWeather.currentWeather,
+      hourlyWeather: onSearchHourlyWeather,
+    });
+  }
+  async updateOnLoadWeather(
+    sub: any,
+    currentWeatherLink: string,
+    hourlyWeatherLink: string,
+    setStateMethod: any
+  ) {
+    let currentWeather = await sub.getCurrentWeatherOnLoad(currentWeatherLink);
+    let hourlyWeather = await sub.getHourlyWeatherOnLoad(hourlyWeatherLink);
 
     setStateMethod({ currentWeather, hourlyWeather });
   }

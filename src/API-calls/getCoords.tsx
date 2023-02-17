@@ -1,10 +1,10 @@
 class GetCoords {
-  getCurrentLocation(): any {
-    navigator.geolocation.getCurrentPosition((position) => {
-      let lat: number = position.coords.latitude;
-      let long: number = position.coords.longitude;
-      console.log(lat, long);
-      return { lat, long };
+  getCurrentLocation(setState: any) {
+    let navi = navigator.geolocation;
+    let location = navi.watchPosition((position) => {
+      let latitude: number = position.coords.latitude;
+      let longitude: number = position.coords.longitude;
+      setState({ latitude, longitude });
     });
   }
 }

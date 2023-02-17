@@ -18,7 +18,6 @@ const TopWeatherDetails: React.FC<TopWeatherDetailstProps> = ({
   detailsToBeRendered,
 }) => {
   const props: PropsItem[] = [...detailsToBeRendered];
-
   let widgets: any = [];
 
   props.forEach((item: PropsItem, index: number) => {

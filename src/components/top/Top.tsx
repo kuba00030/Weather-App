@@ -9,6 +9,7 @@ interface TopProps {
   handleUpdateWeather: any;
   setOnSearchWeatherState: any;
   cityState: any;
+  onSearchWeather: any;
 }
 const Top: React.FC<TopProps> = ({
   handleSetStateOnChange,
@@ -16,27 +17,44 @@ const Top: React.FC<TopProps> = ({
   handleUpdateWeather,
   setOnSearchWeatherState,
   cityState,
+  onSearchWeather,
 }: any) => {
   return (
     <div className="Top">
       <div className="Top-left">
         <div className="Top-left-location">
-          <span className="Top-left-city">Kraków</span>
-          <span className="Top-left-country">Polska</span>
+          <span className="Top-left-city">{onSearchWeather.location.city}</span>
+          <span className="Top-left-country">
+            {onSearchWeather.location.country}
+          </span>
           <span className="Top-left-date">Środa, 12 Maja 15:15</span>
         </div>
         <div className="Top-left-weather">
-          <div className="icon"></div>
+          <div
+            className="icon"
+            style={{
+              height: `100%`,
+              width: `20%`,
+              backgroundSize: "cover",
+              backgroundImage: `url(http://openweathermap.org/img/w/${onSearchWeather.currentWeather.icon}.png)`,
+            }}
+          ></div>
           <div className="Top-left-weather-details">
             <div className="Temp-holder">
-              <span className="Temp">21°</span>
+              <span className="Temp">
+                {onSearchWeather.currentWeather.temperature}°
+              </span>
               <span className="ceclius">C</span>
             </div>
             <div className="Feels-like">
-              Feels like: <span className="Feels-like-temp">25</span>
-              <span>°</span>
+              Feels like:
+              <span className="Feels-like-temp">
+                {onSearchWeather.currentWeather.feelsLike}°
+              </span>
             </div>
-            <span className="Sky-condition">Clear sky</span>
+            <span className="Sky-condition">
+              {onSearchWeather.currentWeather.description}
+            </span>
           </div>
         </div>
       </div>
@@ -61,12 +79,20 @@ const Top: React.FC<TopProps> = ({
         <div className="Top-right-weather-details">
           <TopWeatherDetails
             detailsToBeRendered={[
-              { parameter: "Rain", parameterValue: 12, parameterUnit: "%" },
-              { parameter: "Humidity", parameterValue: 75, parameterUnit: "%" },
+              {
+                parameter: "Clouds",
+                parameterValue: onSearchWeather.currentWeather.clouds,
+                parameterUnit: "%",
+              },
+              {
+                parameter: "Humidity",
+                parameterValue: onSearchWeather.currentWeather.humidity,
+                parameterUnit: "%",
+              },
               {
                 parameter: "Wind speed",
-                parameterValue: 75,
-                parameterUnit: "",
+                parameterValue: onSearchWeather.currentWeather.wind,
+                parameterUnit: "km/h",
               },
             ]}
           />
@@ -74,12 +100,12 @@ const Top: React.FC<TopProps> = ({
             detailsToBeRendered={[
               {
                 parameter: "Pressure",
-                parameterValue: 1020,
+                parameterValue: onSearchWeather.currentWeather.pressure,
                 parameterUnit: "hPa",
               },
               {
                 parameter: "visibility",
-                parameterValue: 12,
+                parameterValue: onSearchWeather.currentWeather.visibility,
                 parameterUnit: "km",
               },
             ]}

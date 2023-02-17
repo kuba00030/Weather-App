@@ -6,7 +6,6 @@
   height: 25vh;
   gap: 20px;
   box-sizing: border-box;
-  border: solid red 1px;
 }
 
 .Top-left,
@@ -50,12 +49,6 @@
   align-items: center;
 }
 
-.icon {
-  background-color: yellow;
-  margin-left: 5%;
-  padding: 8%;
-}
-
 .Top-left-weather-details {
   display: flex;
   flex-direction: column;
@@ -96,8 +89,6 @@
 
 input {
   text-align: end;
-  /* flex: 1; */
-  /* width: none; */
   padding: 0px 5px 5px 5px;
   background-color: transparent;
   outline: none;

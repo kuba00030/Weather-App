@@ -5,7 +5,6 @@ interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
   flex: string | number;
-
   handleSetStateOnChange: any;
   handleUpdateWeather: any;
   updateWeatherData: any;
@@ -17,7 +16,6 @@ const SearchForTheCity = ({
   widthVal,
   widthUnit,
   flex,
-
   handleSetStateOnChange,
   handleUpdateWeather,
   updateWeatherData,

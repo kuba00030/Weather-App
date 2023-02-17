@@ -9,12 +9,15 @@ import { UpdateWeather } from "./API-calls/updateWeather";
 function App() {
   const [Coords, setCoords] = useState({});
   const [City, setCity] = useState("");
-  // const [OnLoadWeather, setOnLoadWeather] = useState({});
-  const [OnSearchWeather, setOnSearchWeather] = useState({});
+  const [OnSearchWeather, setOnSearchWeather] = useState({
+    location: "",
+    currentWeather: "",
+    hourlyWeather: [],
+  });
+  const [OnLoadWeather, setOnLoadWeather] = useState({});
   const handleSetStateOnChange = (e: any) => {
     setCity(e.target.value);
   };
-  console.log(OnSearchWeather);
   const handleUpdateWeather = (
     updater: any,
     sub: any,
@@ -33,17 +36,22 @@ function App() {
   const dataForApi = new DataForApi();
   const getWeather = new GetWeather();
   const updateWeather = new UpdateWeather();
+  const coords = new GetCoords();
+  coords.getCurrentLocation(setCoords);
   dataForApi.cityForSearch = City;
+  dataForApi.currentLocation = Coords;
+
   return (
     <div className="App">
       <Top
         handleSetStateOnChange={handleSetStateOnChange}
+        handleUpdateWeather={handleUpdateWeather}
         cityState={City}
         updateWeatherData={{ dataForApi, getWeather, updateWeather }}
-        handleUpdateWeather={handleUpdateWeather}
         setOnSearchWeatherState={setOnSearchWeather}
+        onSearchWeather={OnSearchWeather}
       />
-      <Mid />
+      <Mid onSearchWeather={OnSearchWeather} />
     </div>
   );
 }
