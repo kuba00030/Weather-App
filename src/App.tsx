@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataForApi } from "./API-calls/apiData";
 import "./App.css";
 import Top from "./components/top/Top";

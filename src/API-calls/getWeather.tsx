@@ -27,7 +27,6 @@ class GetWeather {
       .then((res) => res.json())
       .then((weatherData) => {
         let hourlyWeather = weatherData.list.splice(0, 13);
-        console.log(hourlyWeather);
         return hourlyWeather;
       });
   }
