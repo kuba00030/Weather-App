@@ -12,15 +12,14 @@ const HourlyWeatherDetails: React.FC<IHourlyWeatherDetails> = ({
   return (
     <div className="Hourly-weather-details">
       <div className="HDetails">
-        <span className="Hour">{time}</span>
+        <div className="Hour">{time}</div>
         <div
           className="HImg"
           style={{
-            backgroundSize: "cover",
             backgroundImage: `url(http://openweathermap.org/img/w/${icon}.png)`,
           }}
         ></div>
-        <span className="HTemp">{temp}°C</span>
+        <div className="HTemp">{temp}°C</div>
       </div>
     </div>
   );
