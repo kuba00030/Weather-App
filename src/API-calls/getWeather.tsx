@@ -26,7 +26,7 @@ class GetWeather {
     return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
-        let hourlyWeather = weatherData.list.splice(0, 13);
+        let hourlyWeather = weatherData.list.splice(0, 10);
         return hourlyWeather;
       });
   }

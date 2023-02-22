@@ -11,39 +11,43 @@
   }
 
   .Hourly-weather {
-    width: auto;
+    width: 100%;
     height: auto;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     box-sizing: border-box;
-    gap: 20px;
+    gap: 10px;
+  }
+
+  .HWeather {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .Hourly-weather-details {
-    width: clamp(70px, 30vw, 80px);
-    height: clamp(70px, 30vw, 100px);
-    text-align: center;
+    width: 100%;
+    height: clamp(20px, 7.5vw, 40px);
     flex-shrink: 0;
   }
 
   .HDetails {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
     height: 100%;
     width: 100%;
-    background-color: rgb(14, 18, 49);
-    border-radius: 10px;
-  }
-
-  .Hour,
-  .HTemp {
-    margin: 10px 0px 10px 0px;
+    background-color: rgb(13, 17, 49);
+    border-radius: 5px;
   }
 
   .HDetails > span {
     font-size: var(--font-size-hourly-weather);
+  }
+
+  .Hour {
+    margin-left: 10px;
+    flex: 1;
   }
 
   .HImg {
@@ -51,23 +55,16 @@
     background-repeat: no-repeat;
     width: clamp(30px, 5vw, 50px);
     height: clamp(30px, 5vw, 50px);
-    margin: 0px auto 0px auto;
+    margin: 0px 10px 0px 10px;
+  }
+
+  .HTemp {
+    width: clamp(30px, 4vw, 50px);
+    margin-right: 10px;
   }
 
   .slider {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .slide-left,
-  .slide-right {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    display: none;
   }
 }
 
@@ -75,14 +72,26 @@
   .Mid {
     margin-top: clamp(20px, 10vw, 40px);
   }
+  .Hourly-weather {
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  .HWeather {
+    flex-direction: row;
+  }
   .Hourly-weather-details {
     width: clamp(100px, 30vw, 120px);
     height: clamp(130px, 30vw, 160px);
   }
 
   .HDetails {
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
   }
 
   .HDetails > span {
@@ -94,19 +103,32 @@
     height: clamp(60px, 10vw, 100px);
   }
 
+  .Hour,
+  .HTemp {
+    margin: 10px 0px 10px 0px;
+    flex: 0;
+  }
   .slider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
     gap: clamp(40px, 10vw, 100px);
   }
 
   .slide-left,
   .slide-right {
+    width: clamp(50px, 10vw, 100px);
+    height: clamp(20px, 5vw, 40px);
+    text-align: center;
+    cursor: pointer;
     font-size: var(--font-size-location-small);
   }
 }
 
-@media screen and (1200px <= width) {
+@media screen and (1210px <= width) {
   .Mid {
-    max-width: 2500px;
+    max-width: 1500px;
     margin-top: clamp(40px, 10vw, 90px);
   }
 
@@ -114,10 +136,14 @@
     justify-content: space-between;
     width: 100%;
   }
+  .HWeather {
+    width: 100%;
+    justify-content: space-evenly;
+  }
 
   .Hourly-weather-details {
-    width: clamp(100px, 30vw, 135px);
-    height: clamp(130px, 30vw, 180px);
+    width: clamp(100px, 7.5vw, 135px);
+    height: clamp(130px, 10vw, 180px);
   }
 
   .HDetails > span {
@@ -129,26 +155,6 @@
     height: clamp(60px, 10vw, 60px);
     margin: 0px auto 0px auto;
   }
-
-  .slider {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: clamp(40px, 10vw, 100px);
-  }
-
-  .slide-left,
-  .slide-right {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: var(--font-size-location-small);
-  }
-}
-
-@media screen and (2230px <= width) {
   .slider {
     display: none;
   }
@@ -160,18 +166,38 @@
   animation-name: show-up;
   animation-duration: 500ms;
 }
-@keyframes show-up {
-  0% {
-    transform: rotateY(0deg);
-    opacity: 0;
-  }
-  50% {
-    transform: rotateY(90deg);
-    opacity: 0.5;
-  }
+@media screen and (0px < width) {
+  @keyframes show-up {
+    0% {
+      transform: rotateX(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: rotateX(90deg);
+      opacity: 0.5;
+    }
 
-  100% {
-    transform: rotateY(0deg);
-    opacity: 1;
+    100% {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+  }
+}
+
+@media screen and (700px < width) {
+  @keyframes show-up {
+    0% {
+      transform: rotateY(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: rotateY(90deg);
+      opacity: 0.5;
+    }
+
+    100% {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
   }
 }
