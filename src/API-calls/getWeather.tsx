@@ -1,3 +1,5 @@
+import { IGetWeather } from "../interfaces/interfaces";
+
 class GetWeather {
   async getCurrentWeatherOnSearch(currentWLink: string) {
     return await fetch(currentWLink)
@@ -26,7 +28,17 @@ class GetWeather {
     return await fetch(hourlyWlink)
       .then((res) => res.json())
       .then((weatherData) => {
-        let hourlyWeather = weatherData.list.splice(0, 10);
+        // let hourlyWeatherObject = weatherData.list.splice(0, 10);
+        let hourlyWeather = weatherData.list
+          .splice(0, 10)
+          .map((weather: any) => {
+            return {
+              hour: weather.dt_txt,
+              temp: Math.round(weather.main.temp - 272.15),
+              icon: weather.weather[0].icon,
+            };
+          });
+
         return hourlyWeather;
       });
   }

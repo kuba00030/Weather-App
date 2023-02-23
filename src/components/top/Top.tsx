@@ -3,15 +3,8 @@ import "./top.css";
 import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
 import { SearchForTheCity } from "../inputs/SearchForTheCity";
 import React from "react";
-interface TopProps {
-  handleSetStateOnChange: any;
-  updateWeatherData: any;
-  handleUpdateWeather: any;
-  setOnSearchWeatherState: any;
-  cityState: any;
-  onSearchWeather: any;
-}
-const Top: React.FC<TopProps> = ({
+import { ITopProps } from "../../interfaces/interfaces";
+const Top: React.FC<ITopProps> = ({
   handleSetStateOnChange,
   updateWeatherData,
   handleUpdateWeather,

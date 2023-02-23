@@ -1,24 +1,11 @@
 import { WeatherDetails } from "../widgets/WidgetWeatherDetails";
-
-interface TopWeatherDetailstProps {
-  detailsToBeRendered: {
-    parameter: string;
-    parameterValue: number | string;
-    parameterUnit: string;
-  }[];
-}
-
-interface PropsItem {
-  parameter: string;
-  parameterValue: string | number;
-  parameterUnit: string;
-}
-
-const TopWeatherDetails: React.FC<TopWeatherDetailstProps> = ({
+import { ITopWeatherDetailstProps } from "../../interfaces/interfaces";
+import { PropsItem } from "../../interfaces/interfaces";
+const TopWeatherDetails: React.FC<ITopWeatherDetailstProps> = ({
   detailsToBeRendered,
 }) => {
   const props: PropsItem[] = [...detailsToBeRendered];
-  let widgets: any = [];
+  let widgets: any[] = [];
 
   props.forEach((item: PropsItem, index: number) => {
     widgets.push(

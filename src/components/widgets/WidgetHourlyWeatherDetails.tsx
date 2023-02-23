@@ -15,6 +15,8 @@ const HourlyWeatherDetails: React.FC<IHourlyWeatherDetails> = ({
   state,
 }: any) => {
   // for each widget => when it gets weather details, rotate it and then update weather
+  let timeDisplayed = [...hour].splice(10).splice(0, 6);
+
   const handleWidgetUpdate = (idOfElement: number): void => {
     const timeOut = (idOfElement + 1) * 50;
     const el = document.getElementById(`${idOfElement}`);
@@ -25,7 +27,7 @@ const HourlyWeatherDetails: React.FC<IHourlyWeatherDetails> = ({
       el?.classList.remove("hourly-weather-widget-animaiton");
     }, timeOut + 500);
   };
-  let timeDisplayed = [...hour].splice(10).splice(0, 6);
+
   useEffect(() => {
     handleWidgetUpdate(id);
   }, [state]);
