@@ -3,15 +3,8 @@ import "./top.css";
 import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
 import { SearchForTheCity } from "../inputs/SearchForTheCity";
 import React from "react";
-interface TopProps {
-  handleSetStateOnChange: any;
-  updateWeatherData: any;
-  handleUpdateWeather: any;
-  setOnSearchWeatherState: any;
-  cityState: any;
-  onSearchWeather: any;
-}
-const Top: React.FC<TopProps> = ({
+import { ITopProps } from "../../interfaces/interfaces";
+const Top: React.FC<ITopProps> = ({
   handleSetStateOnChange,
   updateWeatherData,
   handleUpdateWeather,
@@ -30,15 +23,15 @@ const Top: React.FC<TopProps> = ({
           <span className="Top-left-date">Środa, 12 Maja 15:15</span>
         </div>
         <div className="Top-left-weather">
-          <div
-            className="icon"
-            style={{
-              height: `100%`,
-              width: `20%`,
-              backgroundSize: "cover",
-              backgroundImage: `url(http://openweathermap.org/img/w/${onSearchWeather.currentWeather.icon}.png)`,
-            }}
-          ></div>
+          <div className="icon-container">
+            <div
+              className="icon"
+              style={{
+                backgroundSize: `cover`,
+                backgroundImage: `url(http://openweathermap.org/img/w/${onSearchWeather.currentWeather.icon}.png)`,
+              }}
+            ></div>
+          </div>
           <div className="Top-left-weather-details">
             <div className="Temp-holder">
               <span className="Temp">
