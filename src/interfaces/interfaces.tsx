@@ -1,4 +1,5 @@
 export interface IOnSearchWeather {
+  date: any;
   location: ILocation;
   currentWeather: ICurrentWeather;
   hourlyWeather: IHourlyWeather[];
@@ -26,22 +27,9 @@ export interface IHourlyWeather {
   icon: string;
 }
 
-export interface IHandleUpdate {
-  (
-    updater: IUpdater,
-    sub: IGetWeather,
-    currentWeatherLink: string,
-    hourlyWeatherLink: string,
-    setOnSearchWeatherState: any
-  ): void;
-}
-
 export interface ITopProps {
-  handleSetStateOnChange: (e: any) => void;
-  updateWeatherData: { dataForApi: {}; getWeather: {}; updateWeather: {} };
-  handleUpdateWeather: IHandleUpdate;
-  setOnSearchWeatherState: (weather: any) => void;
-  cityState: string;
+  handleSetStateOnChange: any;
+  setOnSearchWeather: any;
   onSearchWeather: IOnSearchWeather;
 }
 
@@ -50,11 +38,13 @@ export interface IUpdater {
     sub: IGetWeather,
     currentWeatherLink: string,
     hourlyWeatherLink: string,
+    dailyWeatherLink: string,
     setStateMethod: any
   ): any;
   updateOnLoadWeather(
     currentWeatherLink: string,
     hourlyWeatherLink: string,
+    dailyWeatherLink: string,
     setStateMethod: any
   ): any;
 }
@@ -65,8 +55,10 @@ export interface IGetWeather {
     location: ILocation;
   };
   getHourlyWeatherOnSearch(hourlyWlink: string): IHourlyWeather[];
+  getDailyOnSearchWeather(dailyWLink: string): any;
   getCurrentWeatherOnLoad(currentWlink: string): any;
   getHourlyWeatherOnLoad(hourlyWlink: string): any;
+  getDailyOnLoadWeather(dailyWLink: string): any;
 }
 
 export interface ITopWeatherDetailstProps {

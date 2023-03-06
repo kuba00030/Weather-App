@@ -1,19 +1,14 @@
 const SearchWeatherButton = ({
-  handleUpdateWeather,
-  updateWeatherData,
-  cityState,
-  setOnSearchWeatherState,
+  handleSetStateOnChange,
+  setOnSearchWeather,
 }: any) => {
   return (
     <button
       className="Search-button"
       onClick={() => {
-        handleUpdateWeather(
-          updateWeatherData.updateWeather,
-          updateWeatherData.getWeather,
-          updateWeatherData.dataForApi.returnOnSerachCurrentWeatherLink(),
-          updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink(),
-          setOnSearchWeatherState
+        handleSetStateOnChange(
+          setOnSearchWeather.inputRef,
+          setOnSearchWeather.setCity
         );
       }}
     >

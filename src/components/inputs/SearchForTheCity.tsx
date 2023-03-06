@@ -1,15 +1,9 @@
-import React from "react";
-import { useState } from "react";
-
 interface SearchForTheCityProps {
   widthVal: string;
   widthUnit: string;
   flex: string | number;
   handleSetStateOnChange: any;
-  handleUpdateWeather: any;
-  updateWeatherData: any;
-  setOnSearchWeatherState: any;
-  cityState: any;
+  setOnSearchWeather: any;
 }
 
 const SearchForTheCity = ({
@@ -17,10 +11,7 @@ const SearchForTheCity = ({
   widthUnit,
   flex,
   handleSetStateOnChange,
-  handleUpdateWeather,
-  updateWeatherData,
-  setOnSearchWeatherState,
-  cityState,
+  setOnSearchWeather,
 }: SearchForTheCityProps) => {
   return (
     <input
@@ -28,18 +19,12 @@ const SearchForTheCity = ({
       id="given-location"
       type="text"
       placeholder="Enter location"
-      onChange={(e) => {
-        handleSetStateOnChange(e);
-      }}
-      value={cityState}
+      ref={setOnSearchWeather.inputRef}
       onKeyUp={(e) => {
         if (e.code === "Enter") {
-          handleUpdateWeather(
-            updateWeatherData.updateWeather,
-            updateWeatherData.getWeather,
-            updateWeatherData.dataForApi.returnOnSerachCurrentWeatherLink(),
-            updateWeatherData.dataForApi.returnOnSearchHourlyWeatherlink(),
-            setOnSearchWeatherState
+          handleSetStateOnChange(
+            setOnSearchWeather.inputRef,
+            setOnSearchWeather.setCity
           );
         }
       }}

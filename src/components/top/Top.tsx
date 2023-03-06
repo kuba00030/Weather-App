@@ -6,10 +6,7 @@ import React from "react";
 import { ITopProps } from "../../interfaces/interfaces";
 const Top: React.FC<ITopProps> = ({
   handleSetStateOnChange,
-  updateWeatherData,
-  handleUpdateWeather,
-  setOnSearchWeatherState,
-  cityState,
+  setOnSearchWeather,
   onSearchWeather,
 }: any) => {
   return (
@@ -20,7 +17,7 @@ const Top: React.FC<ITopProps> = ({
           <span className="Top-left-country">
             {onSearchWeather.location.country}
           </span>
-          <span className="Top-left-date">Środa, 12 Maja 15:15</span>
+          <span className="Top-left-date">{onSearchWeather.date}</span>
         </div>
         <div className="Top-left-weather">
           <div className="icon-container">
@@ -58,15 +55,11 @@ const Top: React.FC<ITopProps> = ({
             widthUnit=""
             flex={1}
             handleSetStateOnChange={handleSetStateOnChange}
-            cityState={cityState}
-            handleUpdateWeather={handleUpdateWeather}
-            updateWeatherData={updateWeatherData}
-            setOnSearchWeatherState={setOnSearchWeatherState}
+            setOnSearchWeather={setOnSearchWeather}
           />
           <SearchWeatherButton
-            handleUpdateWeather={handleUpdateWeather}
-            updateWeatherData={updateWeatherData}
-            setOnSearchWeatherState={setOnSearchWeatherState}
+            handleSetStateOnChange={handleSetStateOnChange}
+            setOnSearchWeather={setOnSearchWeather}
           />
         </div>
         <div className="Top-right-weather-details">

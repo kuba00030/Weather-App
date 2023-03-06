@@ -20,6 +20,10 @@ class DataForApi {
     return `${this.api_url}forecast?q=${this.cityForSearch}${this.api_key}`;
   }
 
+  returnOnSearchDailyWeatherLink() {
+    return `${this.api_url}forecast/daily?q=${this.cityForSearch}&cnt10${this.api_key}`;
+  }
+
   returnOnLoadCurrentWeatherLink() {
     return `${this.api_url}weather?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}${this.api_key}`;
   }
@@ -27,6 +31,12 @@ class DataForApi {
   returnOnLoadHourlyWeatherlink() {
     return `${this.api_url}forecast?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}${this.api_key}`;
   }
+
+  returnOnLoadDailyWeatherLink() {
+    return `${this.api_url}forecast/daily?lat=${this.currentLocation.latitude}&lon=${this.currentLocation.longitude}&cnt10${this.api_key}`;
+  }
 }
 
 export { DataForApi };
+
+//api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
