@@ -37,12 +37,23 @@ class GetWeather {
         return hourlyWeather;
       });
   }
-  async getDailyOnSearchWeather(dailyWLink: string) {
-    return await fetch(dailyWLink)
+  async getDailyOnSearchWeather(dailyWLink: string, options: any) {
+    return await fetch(dailyWLink, options)
       .then((res) => res.json())
       .then((weatherData) => {
-        // console.log(weatherData);
-        return weatherData;
+        console.log(weatherData.days);
+        const daily = weatherData.days.splice(0, 6).map((weather: any) => {
+          return {
+            date: weather.datetime,
+            description: weather.conditions,
+            temp: weather.temp,
+            min_temp: weather.tempmin,
+            max_temp: weather.tempmax,
+            feels_like: weather.feelslike,
+            icon: weather.icon,
+          };
+        });
+        return daily;
       });
   }
   async getCurrentWeatherOnLoad(currentWlink: string) {
@@ -84,13 +95,28 @@ class GetWeather {
         return hourlyWeather;
       });
   }
-  async getDailyOnLoadWeather(dailyWLink: string) {
-    return await fetch(dailyWLink)
+  async getDailyOnLoadWeather(dailyWLink: string, options: any) {
+    return await fetch(dailyWLink, options)
       .then((res) => res.json())
       .then((weatherData) => {
-        // console.log(weatherData);
+        const daily = weatherData.daily.data
+          .splice(0, 6)
+          .map((weather: any) => {
+            const des = weather.weather.replace("_", " ");
+            const description = des.charAt(0).toUpperCase() + des.slice(1);
 
-        return weatherData;
+            return {
+              date: weather.day,
+              description: description,
+              temp: weather.temperature,
+              min_temp: weather.temperature_min,
+              max_temp: weather.temperature_max,
+              feels_like: weather.feels_like,
+              icon: weather.icon,
+            };
+          });
+        console.log(daily);
+        return daily;
       });
   }
 }

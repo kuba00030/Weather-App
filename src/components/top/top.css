@@ -6,6 +6,9 @@
   --font-size-hourly-weather: clamp(12px, 3.5vw, 18px);
   --font-color-bsick: white;
   --font-color-grey: rgb(141, 139, 139);
+
+  --font-size-accordion-title: clamp(16px, 2vw, 24px);
+  --font-size-accordion-weather-details: clamp(14px, 1.5vw, 20px);
 }
 
 @media screen and (0px <= width) {

@@ -6,6 +6,7 @@ import { Mid } from "./components/mid/Mid";
 import { GetCoords } from "./API-calls/getCoords";
 import { GetWeather } from "./API-calls/getWeather";
 import { UpdateWeather } from "./API-calls/updateWeather";
+import { Bottom } from "./components/bottom/Bottom";
 
 function App() {
   const [Coords, setCoords] = useState({
@@ -31,6 +32,7 @@ function App() {
       wind: 0,
     },
     hourlyWeather: [],
+    dailyWeather: [],
   });
   const [OnLoadWeather, setOnLoadWeather] = useState({
     date: "",
@@ -50,6 +52,7 @@ function App() {
       wind: 0,
     },
     hourlyWeather: [],
+    dailyWeather: [],
   });
 
   const handleSetStateOnChange = (element: any, method: any) => {
@@ -57,7 +60,7 @@ function App() {
   };
 
   const handleWeatherOnLocationChange = () => {
-    if (City != "") {
+    if (City !== "") {
       return OnSearchWeather;
     } else {
       return OnLoadWeather;
@@ -79,6 +82,7 @@ function App() {
         dataForApi.returnOnLoadCurrentWeatherLink(),
         dataForApi.returnOnLoadHourlyWeatherlink(),
         dataForApi.returnOnLoadDailyWeatherLink(),
+        dataForApi.optionss,
         setOnLoadWeather,
         dataForApi.currentLocation
       );
@@ -94,13 +98,16 @@ function App() {
       dataForApi.returnOnSerachCurrentWeatherLink(),
       dataForApi.returnOnSearchHourlyWeatherlink(),
       dataForApi.returnOnSearchDailyWeatherLink(),
+      dataForApi.options,
       setOnSearchWeather,
       dataForApi.cityForSearch
     );
+    // getDailyWeather();
   }, [City]);
 
   useEffect(() => {
     handleWeatherOnLocationChange();
+    console.log(OnSearchWeather);
   }, [OnLoadWeather, OnSearchWeather]);
   return (
     <div className="App">
@@ -112,6 +119,7 @@ function App() {
       <Mid
         onSearchHourlyWeather={handleWeatherOnLocationChange().hourlyWeather}
       />
+      <Bottom dailyWeather={handleWeatherOnLocationChange().dailyWeather} />
     </div>
   );
 }

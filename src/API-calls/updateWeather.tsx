@@ -4,6 +4,7 @@ class UpdateWeather {
     currentWeatherLink: string,
     hourlyWeatherLink: string,
     dailyWeatherLink: string,
+    options: any,
     setStateMethod: any,
     cityForSearch: string
   ) {
@@ -16,9 +17,10 @@ class UpdateWeather {
       let onSearchHourlyWeather = await sub.getHourlyWeatherOnSearch(
         hourlyWeatherLink
       );
-      // let onSearchDailyWeather = await sub.getDailyOnSearchWeather(
-      //   dailyWeatherLink
-      // );
+      let onSearchDailyWeather = await sub.getDailyOnSearchWeather(
+        dailyWeatherLink,
+        options
+      );
       let today = new Date();
 
       setStateMethod({
@@ -28,6 +30,7 @@ class UpdateWeather {
         location: onSearchCurrentWeather.location,
         currentWeather: onSearchCurrentWeather.currentWeather,
         hourlyWeather: onSearchHourlyWeather,
+        dailyWeather: onSearchDailyWeather,
       });
     }
   }
@@ -36,6 +39,7 @@ class UpdateWeather {
     currentWeatherLink: string,
     hourlyWeatherLink: string,
     dailyWeatherLink: string,
+    options: any,
     setStateMethod: any,
     coords: any
   ) {
@@ -48,6 +52,10 @@ class UpdateWeather {
       let onLoadHourlyWeather = await sub.getHourlyWeatherOnLoad(
         hourlyWeatherLink
       );
+      let onSearchDailyWeather = await sub.getDailyOnLoadWeather(
+        dailyWeatherLink,
+        options
+      );
       let today = new Date();
 
       setStateMethod({
@@ -57,6 +65,7 @@ class UpdateWeather {
         location: onLoadCurrentWeather.location,
         currentWeather: onLoadCurrentWeather.currentWeather,
         hourlyWeather: onLoadHourlyWeather,
+        dailyWeather: onSearchDailyWeather,
       });
     }
   }
