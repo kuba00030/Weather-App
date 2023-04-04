@@ -36,19 +36,19 @@ const AccordionItem: React.FC<AccordionItemProp> = ({ dailyWeather }) => {
           <div id="weather-temps">
             <div>
               <span className="weather-param">Temperature:</span>
-              {dailyWeather.temp}
+              {dailyWeather.temp}°C
             </div>
             <div>
               <span className="weather-param">Min:</span>
-              {dailyWeather.min_temp}
+              {dailyWeather.min_temp}°C
             </div>
             <div>
               <span className="weather-param">Max:</span>
-              {dailyWeather.max_temp}
+              {dailyWeather.max_temp}°C
             </div>
             <div>
               <span className="weather-param">Feels like:</span>
-              {dailyWeather.feels_like}
+              {dailyWeather.feels_like}°C
             </div>
           </div>
         </div>

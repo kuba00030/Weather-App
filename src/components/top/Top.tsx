@@ -39,7 +39,7 @@ const Top: React.FC<ITopProps> = ({
             <div className="Feels-like">
               Feels like:
               <span className="Feels-like-temp">
-                {onSearchWeather.currentWeather.feelsLike}°
+                {onSearchWeather.currentWeather.feelsLike}°C
               </span>
             </div>
             <span className="Sky-condition">
