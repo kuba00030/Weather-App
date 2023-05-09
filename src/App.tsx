@@ -76,6 +76,11 @@ function App() {
 
   useEffect(() => {
     dataForApi.currentLocation = Coords;
+    if (Coords.latitude === "") {
+      window.alert(
+        "Let us detect your location. It may take a while. Press 'OK' and wait."
+      );
+    }
     if (OnLoadWeather.date === "") {
       updateWeather.updateOnLoadWeather(
         getWeather,
