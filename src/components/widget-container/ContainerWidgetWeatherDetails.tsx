@@ -1,22 +1,24 @@
-import { WeatherDetails } from "../widgets/WidgetWeatherDetails";
-import { ITopWeatherDetailstProps } from "../../interfaces/interfaces";
-import { PropsItem } from "../../interfaces/interfaces";
-const TopWeatherDetails: React.FC<ITopWeatherDetailstProps> = ({
-  detailsToBeRendered,
-}) => {
-  const props: PropsItem[] = [...detailsToBeRendered];
-  let widgets: any[] = [];
+import {
+  TopWeatherWidget,
+  WeatherDetails,
+} from "../widgets/WidgetWeatherDetails";
 
-  props.forEach((item: PropsItem, index: number) => {
-    widgets.push(
-      <WeatherDetails
-        key={index}
-        parameter={item.parameter}
-        parameterValue={item.parameterValue}
-        parameterUnit={item.parameterUnit}
-      />
-    );
-  });
-  return <div className="Top-weather-right-details">{widgets}</div>;
+export type TopWeatherDetails = {
+  details: TopWeatherWidget[];
 };
-export { TopWeatherDetails };
+export const TopWeatherDetails = (props: TopWeatherDetails) => {
+  return (
+    <div className="Top-weather-right-details">
+      {props.details.map((widget, index) => {
+        return (
+          <WeatherDetails
+            key={index}
+            parameter={widget.parameter}
+            parameterValue={widget.parameterValue}
+            parameterUnit={widget.parameterUnit}
+          />
+        );
+      })}
+    </div>
+  );
+};

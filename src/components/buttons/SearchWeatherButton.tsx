@@ -1,18 +1,12 @@
-const SearchWeatherButton = ({
-  handleSetStateOnChange,
-  setOnSearchWeather,
-}: any) => {
+type SearchWeatherButton = {
+  class: string;
+  buttonTxt: string;
+  onClick: () => void;
+};
+const SearchWeatherButton = (props: SearchWeatherButton) => {
   return (
-    <button
-      className="Search-button"
-      onClick={() => {
-        handleSetStateOnChange(
-          setOnSearchWeather.inputRef,
-          setOnSearchWeather.setCity
-        );
-      }}
-    >
-      Search
+    <button className={props.class} onClick={props.onClick}>
+      {props.buttonTxt}
     </button>
   );
 };

@@ -1,33 +1,16 @@
-interface SearchForTheCityProps {
-  widthVal: string;
-  widthUnit: string;
-  flex: string | number;
-  handleSetStateOnChange: any;
-  setOnSearchWeather: any;
-}
+type SearchForTheCity = {
+  class: string;
+  placeholder?: string;
+  onChange: (e?: any) => void;
+};
 
-const SearchForTheCity = ({
-  widthVal,
-  widthUnit,
-  flex,
-  handleSetStateOnChange,
-  setOnSearchWeather,
-}: SearchForTheCityProps) => {
+const SearchForTheCity = (props: SearchForTheCity) => {
   return (
     <input
-      style={{ width: `${widthVal}${widthUnit}`, flex: flex }}
-      id="given-location"
       type="text"
-      placeholder="Enter location"
-      ref={setOnSearchWeather.inputRef}
-      onKeyUp={(e) => {
-        if (e.code === "Enter") {
-          handleSetStateOnChange(
-            setOnSearchWeather.inputRef,
-            setOnSearchWeather.setCity
-          );
-        }
-      }}
+      className={props.class}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
     />
   );
 };

@@ -1,24 +1,19 @@
-import React from "react";
-interface ParameterProps {
+export type TopWeatherWidget = {
   parameter: string;
-  parameterValue: string | number;
+  parameterValue: string | number | undefined;
   parameterUnit: string;
-}
-
-const WeatherDetails: React.FC<ParameterProps> = ({
-  parameter,
-  parameterValue,
-  parameterUnit,
-}) => {
-  return (
-    <div className="details">
-      {parameter}:
-      <span>
-        {parameterValue}
-        {parameterUnit}
-      </span>
-    </div>
-  );
 };
 
-export { WeatherDetails };
+export const WeatherDetails = (props: TopWeatherWidget) => {
+  return props.parameterValue !== undefined ? (
+    <div className="details">
+      {props.parameter}:
+      <span>
+        {props.parameterValue}
+        {props.parameterUnit}
+      </span>
+    </div>
+  ) : (
+    <></>
+  );
+};

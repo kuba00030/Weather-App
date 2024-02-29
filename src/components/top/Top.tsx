@@ -2,22 +2,23 @@ import { SearchWeatherButton } from "../buttons/SearchWeatherButton";
 import "./top.css";
 import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
 import { SearchForTheCity } from "../inputs/SearchForTheCity";
-import React from "react";
-import { ITopProps } from "../../interfaces/interfaces";
-const Top: React.FC<ITopProps> = ({
-  handleSetStateOnChange,
-  setOnSearchWeather,
-  onSearchWeather,
-}: any) => {
-  return (
+import { useWeatherConext } from "../../context/useWeatherContext";
+import { useState } from "react";
+
+const Top = () => {
+  const { weather, setSearchVal } = useWeatherConext();
+  const [searchCity, setSearchCity] = useState<string>("");
+  return weather !== undefined ? (
     <div className="Top">
       <div className="Top-left">
         <div className="Top-left-location">
-          <span className="Top-left-city">{onSearchWeather.location.city}</span>
-          <span className="Top-left-country">
-            {onSearchWeather.location.country}
+          <span className="Top-left-city">
+            {weather.currentWeather.location.city}
           </span>
-          <span className="Top-left-date">{onSearchWeather.date}</span>
+          <span className="Top-left-country">
+            {weather.currentWeather.location.country}
+          </span>
+          <span className="Top-left-date">{12}</span>
         </div>
         <div className="Top-left-weather">
           <div className="icon-container">
@@ -25,25 +26,25 @@ const Top: React.FC<ITopProps> = ({
               className="icon"
               style={{
                 backgroundSize: `cover`,
-                backgroundImage: `url(http://openweathermap.org/img/w/${onSearchWeather.currentWeather.icon}.png)`,
+                backgroundImage: `url(http://openweathermap.org/img/w/${weather.currentWeather.conditions.icon}.png)`,
               }}
             ></div>
           </div>
           <div className="Top-left-weather-details">
             <div className="Temp-holder">
               <span className="Temp">
-                {onSearchWeather.currentWeather.temperature}°
+                {weather.currentWeather.conditions.temp}°
               </span>
               <span className="ceclius">C</span>
             </div>
             <div className="Feels-like">
               Feels like:
               <span className="Feels-like-temp">
-                {onSearchWeather.currentWeather.feelsLike}°C
+                {weather.currentWeather.conditions.feelsLike}°C
               </span>
             </div>
             <span className="Sky-condition">
-              {onSearchWeather.currentWeather.description}
+              {weather.currentWeather.conditions.description}
             </span>
           </div>
         </div>
@@ -51,47 +52,52 @@ const Top: React.FC<ITopProps> = ({
       <div className="Top-right">
         <div className="Search-bar-container">
           <SearchForTheCity
-            widthVal="none"
-            widthUnit=""
-            flex={1}
-            handleSetStateOnChange={handleSetStateOnChange}
-            setOnSearchWeather={setOnSearchWeather}
+            class="d-flex flex-grow-1 fw-semibold"
+            onChange={(e) => {
+              setSearchCity(e.target.value);
+              if (e.target.value === "") {
+                setSearchVal("");
+              }
+            }}
           />
           <SearchWeatherButton
-            handleSetStateOnChange={handleSetStateOnChange}
-            setOnSearchWeather={setOnSearchWeather}
+            class="rounded border-0 p-3 text-secondary fw-semibold"
+            buttonTxt="Search"
+            onClick={() => {
+              setSearchVal(searchCity);
+            }}
           />
         </div>
         <div className="Top-right-weather-details">
           <TopWeatherDetails
-            detailsToBeRendered={[
+            details={[
               {
                 parameter: "Clouds",
-                parameterValue: onSearchWeather.currentWeather.clouds,
+                parameterValue: weather.currentWeather.conditions.clouds,
                 parameterUnit: "%",
               },
               {
                 parameter: "Humidity",
-                parameterValue: onSearchWeather.currentWeather.humidity,
+                parameterValue: weather.currentWeather.conditions.humidity,
                 parameterUnit: "%",
               },
               {
                 parameter: "Wind speed",
-                parameterValue: onSearchWeather.currentWeather.wind,
+                parameterValue: weather.currentWeather.conditions.wind,
                 parameterUnit: "km/h",
               },
             ]}
           />
           <TopWeatherDetails
-            detailsToBeRendered={[
+            details={[
               {
                 parameter: "Pressure",
-                parameterValue: onSearchWeather.currentWeather.pressure,
+                parameterValue: weather.currentWeather.conditions.pressure,
                 parameterUnit: "hPa",
               },
               {
                 parameter: "visibility",
-                parameterValue: onSearchWeather.currentWeather.visibility,
+                parameterValue: weather.currentWeather.conditions.visibility,
                 parameterUnit: "km",
               },
             ]}
@@ -99,6 +105,8 @@ const Top: React.FC<ITopProps> = ({
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

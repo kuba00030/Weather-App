@@ -1,9 +1,9 @@
 import "./mid.css";
 import { HourlyWeather } from "../widget-container/ContainerWidgetWeatherHourly";
 
-interface IOnSearchHourlyWeather {
+type IOnSearchHourlyWeather = {
   onSearchHourlyWeather: any;
-}
+};
 const Mid: React.FC<IOnSearchHourlyWeather> = ({
   onSearchHourlyWeather,
 }: any) => {
