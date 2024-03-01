@@ -1,36 +1,40 @@
 import { SearchWeatherButton } from "../buttons/SearchWeatherButton";
 import "./top.css";
 import { TopWeatherDetails } from "../widget-container/ContainerWidgetWeatherDetails";
-import { SearchForTheCity } from "../inputs/SearchForTheCity";
 import { useWeatherConext } from "../../context/useWeatherContext";
 import { useState } from "react";
+import { SearchBar } from "../inputs/SearchBar";
+import { Coords } from "../../hooks/useGetCoords";
 
 const Top = () => {
   const { weather, setSearchVal } = useWeatherConext();
-  const [searchCity, setSearchCity] = useState<string>("");
+  const [searchCityCoords, setSearchCityCoords] = useState<Coords | undefined>(
+    undefined
+  );
+
   return weather !== undefined ? (
     <div className="Top">
       <div className="Top-left">
         <div className="Top-left-location">
-          <span className="Top-left-city">
+          {/* <span className="Top-left-city">
             {weather.currentWeather.location.city}
           </span>
           <span className="Top-left-country">
             {weather.currentWeather.location.country}
-          </span>
+          </span> */}
           <span className="Top-left-date">{12}</span>
         </div>
         <div className="Top-left-weather">
           <div className="icon-container">
-            <div
+            {/* <div
               className="icon"
               style={{
                 backgroundSize: `cover`,
                 backgroundImage: `url(http://openweathermap.org/img/w/${weather.currentWeather.conditions.icon}.png)`,
               }}
-            ></div>
+            ></div> */}
           </div>
-          <div className="Top-left-weather-details">
+          {/* <div className="Top-left-weather-details">
             <div className="Temp-holder">
               <span className="Temp">
                 {weather.currentWeather.conditions.temp}°
@@ -46,30 +50,27 @@ const Top = () => {
             <span className="Sky-condition">
               {weather.currentWeather.conditions.description}
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="Top-right">
-        <div className="Search-bar-container">
-          <SearchForTheCity
-            class="d-flex flex-grow-1 fw-semibold"
-            onChange={(e) => {
-              setSearchCity(e.target.value);
-              if (e.target.value === "") {
-                setSearchVal("");
-              }
-            }}
-          />
+        <div className="Search-bar-container gap-4">
+          <div className="flex-grow-1">
+            <SearchBar
+              placeholder="Search for the city"
+              onChange={setSearchCityCoords}
+            />
+          </div>
           <SearchWeatherButton
             class="rounded border-0 p-3 text-secondary fw-semibold"
             buttonTxt="Search"
             onClick={() => {
-              setSearchVal(searchCity);
+              setSearchVal(searchCityCoords);
             }}
           />
         </div>
         <div className="Top-right-weather-details">
-          <TopWeatherDetails
+          {/* <TopWeatherDetails
             details={[
               {
                 parameter: "Clouds",
@@ -101,13 +102,14 @@ const Top = () => {
                 parameterUnit: "km",
               },
             ]}
-          />
+          /> */}
         </div>
       </div>
     </div>
   ) : (
     <></>
   );
+  return <></>;
 };
 
 export default Top;

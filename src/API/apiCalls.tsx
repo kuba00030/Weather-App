@@ -1,4 +1,4 @@
-type Conditions = {
+export type CurrentWeather = {
   clouds: number;
   temp: number;
   feelsLike: number;
@@ -10,70 +10,78 @@ type Conditions = {
   icon: string;
 };
 
-type Location = {
-  city: string;
-  country: string;
-};
-
-export type CurrentWeather = {
-  conditions: Conditions;
-  location: Location;
-};
-
 export type HourlyWeather = {
-  hour: string;
+  hour: number;
   temp: number;
   icon: string;
 };
-export const getCurrentWeather = async (link: string) => {
-  return await fetch(link)
-    .then((res) => res.json())
-    .then((weatherData): CurrentWeather => {
-      const conditions: Conditions = {
-        clouds: weatherData.clouds.all,
-        temp: Math.round(weatherData.main.temp - 272.15),
-        feelsLike: Math.round(weatherData.main.feels_like - 272.15),
-        pressure: weatherData.main.pressure,
-        humidity: weatherData.main.humidity,
-        visibility: weatherData.visibility / 1000,
-        wind: Math.round(weatherData.wind.speed / 0.6213711922),
-        description: weatherData.weather[0].description,
-        icon: weatherData.weather[0].icon,
-      };
 
-      const location: Location = {
-        city: weatherData.name,
-        country: weatherData.sys.country,
-      };
-
-      return { conditions, location };
-    });
+export type DailyWeather = {
+  date: Date;
+  description: string;
+  temp: number;
+  tempMin: number;
+  tempMax: number;
+  feelsLike: number;
 };
 
-export const getHourlyWeather = async (link: string) => {
-  return await fetch(link)
-    .then((res) => res.json())
-    .then((weatherData): HourlyWeather => {
-      return weatherData.list.splice(0, 10).map((weather: any) => {
-        return {
-          hour: weather.dt_txt,
-          temp: Math.round(weather.main.temp - 272.15),
-          icon: weather.weather[0].icon,
-        };
-      });
-    });
+export type locationData = {
+  city: string;
+  country: string;
+  date: Date;
 };
-
-export const getDailyWeather = async (link: string) => {
+export const getWeather = async (link: string) => {
   return await fetch(link)
     .then((res) => res.json())
     .then((weatherData) => {
-      return weatherData.list.splice(0, 10).map((weather: any) => {
-        return {
-          hour: weather.dt_txt,
-          temp: Math.round(weather.main.temp - 272.15),
-          icon: weather.weather[0].icon,
-        };
-      });
+      const currentWeather: CurrentWeather = {
+        clouds: weatherData.current.clouds,
+        temp: weatherData.current.temp,
+        feelsLike: weatherData.current.feels_like,
+        pressure: weatherData.current.pressure,
+        humidity: weatherData.current.humidity,
+        visibility: weatherData.current.visibility / 1000,
+        wind: weatherData.current.wind_speed,
+        description: weatherData.current.weather[0].description,
+        icon: weatherData.current.weather[0].icon,
+      };
+
+      const hourlyWeather: HourlyWeather[] = weatherData.hourly
+        .splice(0, 10)
+        .map((weather: any): HourlyWeather => {
+          return {
+            hour: weather.dt,
+            temp: weather.temp,
+            icon: weather.weather[0].icon,
+          };
+        });
+
+      const dailyWeather: DailyWeather[] = weatherData.daily.map(
+        (weather: any): DailyWeather => {
+          return {
+            date: new Date(weather.dt),
+            description: weather.weather[0].description,
+            temp: weather.temp.day,
+            tempMin: weather.temp.min,
+            tempMax: weather.temp.max,
+            feelsLike: weather.feels_like.day,
+          };
+        }
+      );
+
+      return { currentWeather, hourlyWeather, dailyWeather };
+    });
+};
+
+export const getLocation = async (link: string) => {
+  return await fetch(link)
+    .then((res) => res.json())
+    .then((data) => {
+      const location: locationData = {
+        city: data.name,
+        country: data.sys.country,
+        date: new Date(data.dt),
+      };
+      return { location };
     });
 };

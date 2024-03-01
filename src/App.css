@@ -8,5 +8,60 @@
 * {
   margin: 0px;
   padding: 0px;
-  color: white;
+}
+
+.css-1u9des2-indicatorSeparator {
+  background-color: gray !important;
+}
+.css-13cymwt-control {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: solid 1px gray !important;
+}
+.css-b62m3t-container {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+.css-t3ipsp-control {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: solid 1px gray !important;
+}
+.css-1dimb5e-singleValue {
+  color: white !important;
+}
+.css-1nmdiq5-menu {
+  background-color: rgba(128, 128, 128, 0.308) !important;
+  border: solid 1px gray !important;
+  border-radius: 5px !important;
+  color: white !important;
+}
+.css-1nmdiq5-menu > * :hover {
+  background-color: rgba(128, 128, 128, 0.308) !important;
+}
+.css-1nmdiq5-menu > * :focus {
+  background-color: rgba(128, 128, 128, 0.308) !important;
+}
+.css-1nmdiq5-menu > * ::before {
+  background-color: rgba(128, 128, 128, 0.308) !important;
+}
+.css-1nmdiq5-menu > * ::after {
+  background-color: rgba(128, 128, 128, 0.308) !important;
+}
+input {
+  color: white !important;
+}
+::-webkit-input-placeholder,
+::-moz-placeholder,
+::placeholder {
+  color: white !important;
+  opacity: 1 !important;
 }

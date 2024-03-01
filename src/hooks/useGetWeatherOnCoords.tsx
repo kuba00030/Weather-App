@@ -1,25 +1,20 @@
-import {
-  getCurrentWeather,
-  getDailyWeather,
-  getHourlyWeather,
-} from "../API/apiCalls";
+import { getLocation, getWeather } from "../API/apiCalls";
 import { Coords } from "./useGetCoords";
 
 export default function useGetWeatherOnCoords() {
   const getWeatherOnCoords = async (
-    apiUrl: string,
+    apiWeatherUrl: string,
+    apiLocationUrl: string,
     apiKey: string,
-    coords: Coords | undefined
+    coords: Coords
   ) => {
-    const currentWeatherLink = `${apiUrl}weather?lat=${coords?.lat}&lon=${coords?.lon}${apiKey}`;
-    const hourlyWeatherLink = `${apiUrl}forecast?lat=${coords?.lat}&lon=${coords?.lon}${apiKey}`;
-    // const dailyWeatherLink = `https://ai-weather-by-meteosource.p.rapidapi.com/daily?lat=${coords?.lat}&lon=${coords?.lon}&language=en&units=metric`;
+    const weatherLink = `${apiWeatherUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`;
+    const locationLink = `${apiLocationUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`;
 
-    const currentWeather = await getCurrentWeather(currentWeatherLink);
-    const hourlyWeather = await getHourlyWeather(hourlyWeatherLink);
-    // const dailyWeather = await getDailyWeather(dailyWeatherLink);
+    const weather = await getWeather(weatherLink);
+    const { location } = await getLocation(locationLink);
 
-    return { currentWeather, hourlyWeather };
+    return { weather, location };
   };
 
   return { getWeatherOnCoords };

@@ -122,17 +122,6 @@
     align-items: flex-end;
   }
 
-  input {
-    font-size: var(--font-size-location-small);
-    text-align: end;
-    padding: 0px 5px 5px 5px;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    margin-right: 10px;
-    border-bottom: solid white 1px;
-  }
-
   .Search-button {
     color: black;
     font-size: clamp(10px, 5vw, 20px);
@@ -150,6 +139,7 @@
     border-radius: 0.5rem;
     font-size: var(--font-size-location-small);
   }
+
   .Top-weather-right-details {
     width: 50%;
   }
@@ -271,19 +261,8 @@
   .Search-bar-container {
     display: flex;
     flex-direction: row;
-    height: auto;
     box-sizing: border-box;
     align-items: flex-end;
-  }
-
-  input {
-    font-size: var(--font-size-location-small);
-    text-align: end;
-    padding: 0px 5px 5px 5px;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-bottom: solid white 1px;
   }
 
   .Search-button {
@@ -305,6 +284,7 @@
     border-radius: 0.5rem;
     font-size: var(--font-size-location-small);
   }
+
   .Top-weather-right-details {
     width: 50%;
   }

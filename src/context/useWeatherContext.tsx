@@ -1,22 +1,30 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { CurrentWeather, HourlyWeather } from "../API/apiCalls";
-import useGetCoords from "../hooks/useGetCoords";
+import {
+  CurrentWeather,
+  DailyWeather,
+  HourlyWeather,
+  locationData,
+} from "../API/apiCalls";
+import useGetCoords, { Coords } from "../hooks/useGetCoords";
 import useGetWeatherOnCoords from "../hooks/useGetWeatherOnCoords";
-import useGetWeatherOnSearch from "../hooks/useGetWeatherOnSearch";
 import { openWeatherKey } from "../API/apiKeys";
 
 export type ContextProviderProps = {
   children: React.ReactNode;
 };
 
-export type Weather = {
-  currentWeather: CurrentWeather;
-  hourlyWeather: HourlyWeather;
+export type WeatherData = {
+  weather: {
+    currentWeather: CurrentWeather;
+    hourlyWeather: HourlyWeather[];
+    dailyWeather: DailyWeather[];
+  };
+  location: locationData;
 };
 
 export type WeatherContext = {
-  weather: Weather | undefined;
-  setSearchVal: React.Dispatch<React.SetStateAction<string>>;
+  weather: WeatherData | undefined;
+  setSearchVal: React.Dispatch<React.SetStateAction<Coords | undefined>>;
 };
 
 export const WeatherContext = createContext<WeatherContext | null>(null);
@@ -26,12 +34,11 @@ export default function WeatherContextProvider({
 }: ContextProviderProps) {
   const { coords } = useGetCoords();
   const { getWeatherOnCoords } = useGetWeatherOnCoords();
-  const { getWeatherOnSearch } = useGetWeatherOnSearch();
-  const [weather, setWeather] = useState<Weather | undefined>(undefined);
+  const [weather, setWeather] = useState<WeatherData | undefined>(undefined);
   const [firstWeatherState, setFirstWeatherState] = useState<
-    Weather | undefined
+    WeatherData | undefined
   >(undefined);
-  const [searchVal, setSearchVal] = useState<string>("");
+  const [searchVal, setSearchVal] = useState<Coords | undefined>(undefined);
 
   useEffect(() => {
     if (coords === undefined) {
@@ -40,32 +47,36 @@ export default function WeatherContextProvider({
       );
     } else {
       getWeatherOnCoords(
-        openWeatherKey.apiUrl,
+        openWeatherKey.apiWeatherUrl,
+        openWeatherKey.apiLocationUrl,
         openWeatherKey.apiKey,
         coords
-      ).then((fetchedWeather) => {
-        setWeather({ ...fetchedWeather });
+      ).then((weatherData) => {
+        setWeather({
+          weather: { ...weatherData.weather },
+          location: { ...weatherData.location },
+        });
 
         if (firstWeatherState === undefined) {
-          setFirstWeatherState({ ...fetchedWeather });
+          setFirstWeatherState({
+            weather: { ...weatherData.weather },
+            location: { ...weatherData.location },
+          });
         }
       });
     }
   }, [coords]);
 
   useEffect(() => {
-    if (searchVal !== "") {
-      getWeatherOnSearch(
-        openWeatherKey.apiUrl,
+    if (searchVal !== undefined) {
+      getWeatherOnCoords(
+        openWeatherKey.apiWeatherUrl,
+        openWeatherKey.apiLocationUrl,
         openWeatherKey.apiKey,
         searchVal
-      ).then((fetchedWeather) => {
-        setWeather({ ...fetchedWeather });
+      ).then((res) => {
+        console.log(res);
       });
-    }
-
-    if (searchVal === "" && firstWeatherState !== undefined) {
-      setWeather({ ...firstWeatherState });
     }
   }, [searchVal]);
 
