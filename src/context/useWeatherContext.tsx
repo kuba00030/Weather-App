@@ -23,7 +23,7 @@ export type WeatherData = {
 };
 
 export type WeatherContext = {
-  weather: WeatherData | undefined;
+  weatherData: WeatherData | undefined;
   setSearchVal: React.Dispatch<React.SetStateAction<Coords | undefined>>;
 };
 
@@ -34,7 +34,9 @@ export default function WeatherContextProvider({
 }: ContextProviderProps) {
   const { coords } = useGetCoords();
   const { getWeatherOnCoords } = useGetWeatherOnCoords();
-  const [weather, setWeather] = useState<WeatherData | undefined>(undefined);
+  const [weatherData, setWeatherData] = useState<WeatherData | undefined>(
+    undefined
+  );
   const [firstWeatherState, setFirstWeatherState] = useState<
     WeatherData | undefined
   >(undefined);
@@ -52,7 +54,7 @@ export default function WeatherContextProvider({
         openWeatherKey.apiKey,
         coords
       ).then((weatherData) => {
-        setWeather({
+        setWeatherData({
           weather: { ...weatherData.weather },
           location: { ...weatherData.location },
         });
@@ -74,14 +76,17 @@ export default function WeatherContextProvider({
         openWeatherKey.apiLocationUrl,
         openWeatherKey.apiKey,
         searchVal
-      ).then((res) => {
-        console.log(res);
+      ).then((weatherData) => {
+        setWeatherData({
+          weather: { ...weatherData.weather },
+          location: { ...weatherData.location },
+        });
       });
     }
   }, [searchVal]);
 
   return (
-    <WeatherContext.Provider value={{ weather, setSearchVal }}>
+    <WeatherContext.Provider value={{ weatherData, setSearchVal }}>
       {children}
     </WeatherContext.Provider>
   );

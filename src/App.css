@@ -1,13 +1,47 @@
+:root {
+  --fs-xxl: clamp(22px, 3.5vw, 52px);
+  --fs-xl: clamp(16px, 2.5vw, 35px);
+  --fs-l: clamp(16px, 2vw, 25px);
+  --fs-m: clamp(16px, 1.5vw, 20px);
+  --font-size-hourly-weather: clamp(12px, 3.5vw, 18px);
+  --font-color-bsick: white;
+  --fc-gray: rgb(141, 139, 139);
+
+  --font-size-accordion-title: clamp(16px, 2vw, 24px);
+  --font-size-accordion-weather-details: clamp(14px, 1.5vw, 20px);
+}
+.fs-xxl {
+  font-size: var(--fs-xxl);
+}
+.fs-xl {
+  font-size: var(--fs-xl);
+}
+.fs-l {
+  font-size: var(--fs-l);
+}
+.fc-gray {
+  color: var(--fc-gray);
+}
+.fs-m {
+  font-size: var(--fs-m);
+}
 .App {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100vw;
+}
+@media screen and (0px <= width) {
+  .weather-container {
+    margin: 0% clamp(5%, 5vw, 20%);
+  }
 }
 
 * {
   margin: 0px;
   padding: 0px;
+  color: white;
 }
 
 .css-1u9des2-indicatorSeparator {

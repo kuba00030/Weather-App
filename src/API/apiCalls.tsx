@@ -11,7 +11,7 @@ export type CurrentWeather = {
 };
 
 export type HourlyWeather = {
-  hour: number;
+  hour: Date;
   temp: number;
   icon: string;
 };
@@ -37,7 +37,7 @@ export const getWeather = async (link: string) => {
       const currentWeather: CurrentWeather = {
         clouds: weatherData.current.clouds,
         temp: weatherData.current.temp,
-        feelsLike: weatherData.current.feels_like,
+        feelsLike: Math.round(weatherData.current.feels_like),
         pressure: weatherData.current.pressure,
         humidity: weatherData.current.humidity,
         visibility: weatherData.current.visibility / 1000,
@@ -50,7 +50,7 @@ export const getWeather = async (link: string) => {
         .splice(0, 10)
         .map((weather: any): HourlyWeather => {
           return {
-            hour: weather.dt,
+            hour: new Date(weather.dt),
             temp: weather.temp,
             icon: weather.weather[0].icon,
           };

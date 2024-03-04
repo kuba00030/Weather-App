@@ -3,12 +3,12 @@ import { rapidApi } from "../../API/apiKeys";
 import { useState } from "react";
 import { Coords } from "../../hooks/useGetCoords";
 
-type SearchBar = {
+type SearchInput = {
   placeholder?: string;
   onChange: (searchData: Coords | undefined) => void;
 };
 
-export const SearchBar = (props: SearchBar) => {
+export const SearchInput = (props: SearchInput) => {
   const [search, setSearch] = useState<string>("");
 
   const handleOnChange = (searchData: any) => {
