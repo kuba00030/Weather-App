@@ -1,18 +1,20 @@
 import "./App.css";
 import { CurrentWeather } from "./components/top/CurrentWeather";
-import { Mid } from "./components/mid/Mid";
 import { Bottom } from "./components/bottom/Bottom";
 import WeatherContextProvider from "./context/useWeatherContext";
+import { HourlyWeather } from "./components/mid/HourlyWeather";
 
 function App() {
   return (
-    <div className="App">
-      <div className="weather-container">
-        <WeatherContextProvider>
+    <WeatherContextProvider>
+      <div className="App">
+        <div className="weather-container">
           <CurrentWeather />
-        </WeatherContextProvider>
+          <HourlyWeather />
+          {/* <Bottom dailyWeather={handleWeatherOnLocationChange().dailyWeather} /> */}
+        </div>
       </div>
-    </div>
+    </WeatherContextProvider>
   );
 }
 

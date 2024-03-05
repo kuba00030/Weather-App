@@ -1,4 +1,4 @@
-import "./top.css";
+import "./current-weather-style.css";
 import { useWeatherConext } from "../../context/useWeatherContext";
 import { SearchBar } from "./search-bar/SearchBar";
 import { CWDetails } from "./CWDetails";
@@ -7,17 +7,6 @@ import { CWIcon } from "./CWIcon";
 export const CurrentWeather = () => {
   const { weatherData } = useWeatherConext();
 
-  const getCurrentDate = (): string => {
-    const date = new Date();
-    const dayNumeric = date.toLocaleString("en", { day: "2-digit" });
-    const day = date.toLocaleString("en", { weekday: "short" });
-    const month = date.toLocaleString("en", { month: "long" });
-    const currentDate = `${dayNumeric} ${month}, ${day}`;
-
-    return currentDate;
-  };
-
-  getCurrentDate();
   return weatherData !== undefined ? (
     <div className="d-flex flex-column gap-4 mt-4">
       <SearchBar />
@@ -33,7 +22,7 @@ export const CurrentWeather = () => {
               parameterValClass="fs-xxl fw-bold"
             />
             <CWDetails
-              parameterVal={getCurrentDate()}
+              parameterVal={weatherData.location.date}
               parameterValClass="fc-gray fs-l fw-bold"
             />
           </div>
@@ -64,7 +53,7 @@ export const CurrentWeather = () => {
           </div>
         </div>
         <div className="cw-widget-container d-flex flex-grow-1">
-          <div className="cw-widget gap-2 w-100 rounded p-2">
+          <div className="cw-widget gap-2 w-100 rounded-3 p-2">
             <CWDetails
               containetClass="d-flex justify-content-between align-items-center fw-bold"
               parameter="Clouds:"

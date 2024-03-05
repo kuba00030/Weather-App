@@ -12,21 +12,20 @@
     height: clamp(70px, 12vw, 150px);
     background-size: cover;
   }
-  .Search-bar-container {
+  .search-bar-container {
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     align-items: flex-end;
   }
-  .Search-button {
-    color: black;
-    font-size: clamp(10px, 5vw, 20px);
-    margin-left: 10px;
-    box-sizing: border-box;
-    width: clamp(40px, 12vw, 120px);
-    height: clamp(20px, 7vw, 60px);
+  .search-button {
+    transition: 0.2s ease-in-out;
+  }
+  .search-button:hover {
+    filter: brightness(0.6);
   }
 }
+
 @media screen and (0px <= width < 440px) {
   .cw-widget {
     grid-template-columns: 1fr;
@@ -44,18 +43,10 @@
     height: clamp(70px, 12vw, 150px);
     background-size: cover;
   }
-  .Search-bar-container {
+  .search-bar-container {
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     align-items: flex-end;
-  }
-  .Search-button {
-    color: black;
-    font-size: clamp(10px, 5vw, 20px);
-    margin-left: 10px;
-    box-sizing: border-box;
-    width: clamp(40px, 12vw, 120px);
-    height: clamp(20px, 7vw, 60px);
   }
 }

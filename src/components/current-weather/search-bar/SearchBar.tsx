@@ -10,7 +10,7 @@ export const SearchBar = () => {
     undefined
   );
   return (
-    <div className="Search-bar-container gap-4">
+    <div className="search-bar-container gap-4">
       <div className="flex-grow-1">
         <SearchInput
           placeholder="Search for the city"
@@ -18,7 +18,7 @@ export const SearchBar = () => {
         />
       </div>
       <SearchWeatherButton
-        class="rounded border-0 p-2 text-secondary fw-semibold"
+        class="rounded border-0 p-2 fc-gray fw-bold search-button"
         buttonTxt="Search"
         onClick={() => {
           setSearchVal(searchCityCoords);

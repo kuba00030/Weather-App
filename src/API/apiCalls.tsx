@@ -1,3 +1,5 @@
+import { dateFormat } from "../utils/format/dateFormat";
+
 export type CurrentWeather = {
   clouds: number;
   temp: number;
@@ -11,7 +13,7 @@ export type CurrentWeather = {
 };
 
 export type HourlyWeather = {
-  hour: Date;
+  hour: string;
   temp: number;
   icon: string;
 };
@@ -28,8 +30,9 @@ export type DailyWeather = {
 export type locationData = {
   city: string;
   country: string;
-  date: Date;
+  date: string;
 };
+
 export const getWeather = async (link: string) => {
   return await fetch(link)
     .then((res) => res.json())
@@ -47,10 +50,11 @@ export const getWeather = async (link: string) => {
       };
 
       const hourlyWeather: HourlyWeather[] = weatherData.hourly
-        .splice(0, 10)
+        .splice(0, 24)
         .map((weather: any): HourlyWeather => {
+          const { hour } = dateFormat(weather.dt);
           return {
-            hour: new Date(weather.dt),
+            hour: hour,
             temp: weather.temp,
             icon: weather.weather[0].icon,
           };
@@ -59,7 +63,7 @@ export const getWeather = async (link: string) => {
       const dailyWeather: DailyWeather[] = weatherData.daily.map(
         (weather: any): DailyWeather => {
           return {
-            date: new Date(weather.dt),
+            date: new Date(weather.dt * 1000),
             description: weather.weather[0].description,
             temp: weather.temp.day,
             tempMin: weather.temp.min,
@@ -77,10 +81,11 @@ export const getLocation = async (link: string) => {
   return await fetch(link)
     .then((res) => res.json())
     .then((data) => {
+      const { day, dayNumeric, month } = dateFormat(data.dt);
       const location: locationData = {
         city: data.name,
         country: data.sys.country,
-        date: new Date(data.dt),
+        date: `${dayNumeric} ${month}, ${day}`,
       };
       return { location };
     });
