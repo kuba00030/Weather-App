@@ -8,7 +8,10 @@ type Accordion = {
 
 export const Accordion = (props: Accordion) => {
   return (
-    <div className="dw-container d-flex flex-column flex-grow-1 w-100 overflow-auto rounded-3">
+    <div
+      className="dw-container d-flex flex-column  w-100 overflow-auto rounded-3"
+      style={{ backgroundColor: "red" }}
+    >
       {props.dailyWeather.map((dayWeather: DailyWeather, index) => {
         return <AccordionItem dayWeather={dayWeather} key={`day: ${index}`} />;
       })}

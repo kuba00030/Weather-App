@@ -10,7 +10,7 @@ export const SearchBar = () => {
     undefined
   );
   return (
-    <div className="search-bar-container gap-4">
+    <div className="search-bar-container">
       <div className="flex-grow-1">
         <SearchInput
           placeholder="Search for the city"

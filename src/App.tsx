@@ -11,7 +11,7 @@ function App() {
     <WeatherContextProvider>
       <div className="App d-flex flex-column flex-grow-1 overflow-hidden gap-5 py-5">
         <SearchBar />
-        <div className="weather-container position-relative d-flex flex-column flex-grow-1 gap-5 justify-content-center align-items-center">
+        <div className="weather-container position-relative d-flex flex-column flex-grow-1 gap-5">
           <CurrentWeather />
           <HourlyWeather />
           <DailyWeather />

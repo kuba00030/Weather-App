@@ -14,7 +14,6 @@
   .search-bar-container {
     display: flex;
     flex-direction: row;
-    box-sizing: border-box;
     align-items: flex-end;
   }
   .search-button {
