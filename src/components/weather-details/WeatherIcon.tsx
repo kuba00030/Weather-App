@@ -1,9 +1,9 @@
-type CWIcon = {
+type WeatherIcon = {
   iconLink: string;
   iconClass: string;
 };
 
-export const CWIcon = (props: CWIcon) => {
+export const WeatherIcon = (props: WeatherIcon) => {
   return (
     <div
       className={props.iconClass}

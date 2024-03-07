@@ -1,13 +1,12 @@
 @media screen and (0px < width) {
   .h-img {
-    width: clamp(60px, 10vw, 60px);
-    height: clamp(60px, 10vw, 60px);
+    width: 60px;
+    height: 60px;
     background-size: cover;
   }
   .h-weather-details {
     width: clamp(130px, 7.5vw, 150px);
     height: clamp(150px, 10vw, 180px);
-    background-color: rgb(28, 38, 84);
   }
 }
 

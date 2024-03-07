@@ -1,17 +1,21 @@
 import "./App.css";
-import { CurrentWeather } from "./components/top/CurrentWeather";
-import { Bottom } from "./components/bottom/Bottom";
+import { CurrentWeather } from "./components/current-weather/CurrentWeather";
+import { DailyWeather } from "./components/daily-weather/DailyWeather";
+import { HourlyWeather } from "./components/hourly-weather/HourlyWeather";
+import { SearchBar } from "./components/search-bar/SearchBar";
 import WeatherContextProvider from "./context/useWeatherContext";
-import { HourlyWeather } from "./components/mid/HourlyWeather";
+import { FetchingSpinner } from "./spinner/FetchingSpinner";
 
 function App() {
   return (
     <WeatherContextProvider>
-      <div className="App">
-        <div className="weather-container">
+      <div className="App d-flex flex-column flex-grow-1 overflow-hidden gap-5 py-5">
+        <SearchBar />
+        <div className="weather-container position-relative d-flex flex-column flex-grow-1 gap-5 justify-content-center align-items-center">
           <CurrentWeather />
           <HourlyWeather />
-          {/* <Bottom dailyWeather={handleWeatherOnLocationChange().dailyWeather} /> */}
+          <DailyWeather />
+          <FetchingSpinner />
         </div>
       </div>
     </WeatherContextProvider>

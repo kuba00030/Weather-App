@@ -30,7 +30,7 @@ export const HourlyWeather = () => {
   return weatherData !== undefined ? (
     <motion.div
       ref={sliderContainer}
-      className="d-flex flex-grow-1 justify-content-start overflow-hidden gap-2 mt-5"
+      className="d-flex justify-content-start flex-shrink-0 w-100 overflow-hidden gap-2"
     >
       <motion.div
         className="d-flex flex-row gap-4"

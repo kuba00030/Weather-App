@@ -5,7 +5,6 @@
   .cw-widget {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: rgb(28, 38, 84);
   }
   .cw-icon {
     width: clamp(70px, 12vw, 150px);

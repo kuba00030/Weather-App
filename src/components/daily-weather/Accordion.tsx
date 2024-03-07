@@ -1,17 +1,17 @@
 import { AccordionItem } from "./AccordionItem";
 import "./accordion-style.css";
+import { DailyWeather } from "../../API/apiCalls";
 
-interface AccordionProps {
-  dailyWeather: any;
-}
-
-const Accordion: React.FC<AccordionProps> = ({ dailyWeather }) => {
-  let accordionItems: any = [];
-
-  dailyWeather.forEach((item: any) => {
-    accordionItems.push(<AccordionItem dailyWeather={item} />);
-  });
-  return <div className="accordion-container">{accordionItems}</div>;
+type Accordion = {
+  dailyWeather: DailyWeather[];
 };
 
-export { Accordion };
+export const Accordion = (props: Accordion) => {
+  return (
+    <div className="dw-container d-flex flex-column flex-grow-1 w-100 overflow-auto rounded-3">
+      {props.dailyWeather.map((dayWeather: DailyWeather, index) => {
+        return <AccordionItem dayWeather={dayWeather} key={`day: ${index}`} />;
+      })}
+    </div>
+  );
+};

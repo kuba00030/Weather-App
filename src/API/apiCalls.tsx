@@ -19,7 +19,7 @@ export type HourlyWeather = {
 };
 
 export type DailyWeather = {
-  date: Date;
+  date: string;
   description: string;
   temp: number;
   tempMin: number;
@@ -62,8 +62,9 @@ export const getWeather = async (link: string) => {
 
       const dailyWeather: DailyWeather[] = weatherData.daily.map(
         (weather: any): DailyWeather => {
+          const { day, dayNumeric, month } = dateFormat(weather.dt);
           return {
-            date: new Date(weather.dt * 1000),
+            date: `${dayNumeric} ${month}, ${day}`,
             description: weather.weather[0].description,
             temp: weather.temp.day,
             tempMin: weather.temp.min,

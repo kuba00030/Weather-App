@@ -1,188 +1,31 @@
-#weather-data {
+.dw-container {
+  flex-shrink: 1;
+}
+.dw-details-container {
+  display: flex;
+  flex-direction: row;
+  transition: 0.3s ease-in-out;
+}
+.dw-details {
+  padding: 25px 0px;
+}
+.dw-details-opened {
+  height: 100px;
+}
+.dw-details-closed {
   height: 0px;
-  padding: 0px;
-  transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
 }
-
-#weather-data[aria-expanded="false"] {
-  height: 60px;
-  padding: 10px;
-}
-@media screen and (0px < width) {
-  .accordion-container {
-    margin-top: 40px;
-    width: 90%;
-    height: auto;
-    display: flex;
+@media screen and (900px >= width) {
+  .dw-details-container {
     flex-direction: column;
-    padding: 10px;
-
-    border-radius: 10px;
   }
-
-  #accordion-item {
-    width: 100%;
-    background-color: rgb(13, 17, 49);
+  .dw-details {
+    padding: 10px 0px;
   }
-
-  #accordion-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: solid black 1px;
-    padding: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    text-align: center;
-    align-items: center;
-    font-size: var(--font-size-accordion-title);
-    background-color: rgb(28, 38, 84);
+  .dw-details-opened {
+    height: 200px;
   }
-
-  #accordion-action-button {
-    margin-right: 10px;
-    color: black;
-    width: clamp(80px, 4vw, 100px);
-    height: clamp(30px, 4vw, 50px);
-    text-align: center;
-  }
-
-  #accordion-weather-display-area {
-    padding: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: var(--font-size-accordion-weather-details);
-    box-sizing: border-box;
-  }
-
-  #weather-data {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    margin-right: 10px;
-    overflow: hidden;
-  }
-
-  .weather-param {
-    margin-right: 10px;
-    color: var(--font-color-grey);
-  }
-
-  #weather-desc {
-    width: 100%;
-    font-weight: 700;
-    color: var(--font-color-grey);
-  }
-
-  #weather-temps {
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .animation-open {
-    animation-name: accordion-item-open-anim;
-    animation: 200s ease-in-out;
-  }
-  .animation-close {
-    animation-name: accordion-item-close-anim;
-    animation: 200s ease-in-out;
-  }
-
-  #weather-data {
-    height: 0px;
-    padding: 0px;
-    transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  }
-
-  #weather-data[aria-expanded="false"] {
-    height: 130px;
-    padding: 10px;
-  }
-}
-
-@media screen and (700px < width) {
-  #accordion-weather-display-area {
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: var(--font-size-accordion-weather-details);
-  }
-
-  #weather-data {
-    flex-direction: row;
-    height: 0px;
-    margin-right: 10px;
-  }
-
-  #weather-desc {
-    width: 40%;
-  }
-
-  #weather-temps {
-    justify-content: space-between;
-    flex-direction: row;
-  }
-  #weather-data {
-    height: 0px;
-    padding: 0px;
-    transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  }
-
-  #weather-data[aria-expanded="false"] {
-    height: 60px;
-    padding: 10px;
-  }
-}
-
-@media screen and (1210px <= width) {
-  .accordion-container {
-    max-width: 1500px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 10;
-  }
-
-  #accordion-header {
-    border-bottom: solid black 1px;
-    padding: 10px;
-    font-size: var(--font-size-accordion-title);
-  }
-
-  #accordion-action-button {
-    margin-right: 10px;
-    color: black;
-    width: clamp(80px, 4vw, 100px);
-    height: clamp(30px, 2vw, 50px);
-  }
-}
-
-@keyframes accordion-item-open-anim {
-  0% {
-    height: auto;
-    max-height: 0px;
-  }
-
-  100% {
-    height: auto;
-    max-height: 400px;
-  }
-}
-
-@keyframes accordion-item-close-anim {
-  0% {
-    height: auto;
-    max-height: 400px;
-  }
-
-  100% {
-    height: auto;
-    max-height: 0px;
+  .dw-container {
+    flex-shrink: 0;
   }
 }

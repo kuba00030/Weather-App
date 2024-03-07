@@ -1,4 +1,4 @@
-type CWDetails = {
+type WeatherDetails = {
   containetClass?: string;
   parameter?: string;
   parameterClass?: string;
@@ -7,7 +7,7 @@ type CWDetails = {
   parameterUnit?: string;
   parameterUnitClass?: string;
 };
-export const CWDetails = (props: CWDetails) => {
+export const WeatherDetails = (props: WeatherDetails) => {
   return (
     <div className={props.containetClass}>
       {props.parameter && (

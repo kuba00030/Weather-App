@@ -1,57 +1,64 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { DailyWeather } from "../../API/apiCalls";
+import { WeatherDetails } from "../weather-details/WeatherDetails";
 
-interface AccordionItemProp {
-  dailyWeather: any;
-}
+type DayWeather = {
+  dayWeather: DailyWeather;
+};
 
-const AccordionItem: React.FC<AccordionItemProp> = ({ dailyWeather }) => {
-  const [IsActive, setIsActive] = useState(false);
-  useEffect(() => {}, [IsActive]);
+const AccordionItem = (props: DayWeather) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div id="accordion-item">
-      <div id="accordion-header">
-        <div
-          id="accordion-title"
-          style={{
-            marginLeft: 10,
-            textAlign: "center",
-            height: "100%",
-          }}
-        >
-          {dailyWeather.date}
-        </div>
+    <div className="d-flex flex-column">
+      <div className="my-bg-light d-flex flex-row justify-content-between align-items-center py-2 px-4">
+        <WeatherDetails
+          parameterValClass="fs-m fc-gray fw-bold"
+          parameterVal={props.dayWeather.date}
+        />
         <button
-          id="accordion-action-button"
+          className="search-button fs-s fc-gray fw-bold p-2 rounded-3 border-0"
           onClick={() => {
-            setIsActive(!IsActive);
+            setIsOpen(!isOpen);
           }}
         >
-          {IsActive === false ? "Open" : "Close"}
+          {isOpen === false ? "Open" : "Close"}
         </button>
       </div>
 
-      <div id="accordion-weather-display-area">
-        <div id="weather-data" aria-expanded={!IsActive}>
-          <div id="weather-desc">{dailyWeather.description}</div>
-          <div id="weather-temps">
-            <div>
-              <span className="weather-param">Temperature:</span>
-              {dailyWeather.temp}°C
-            </div>
-            <div>
-              <span className="weather-param">Min:</span>
-              {dailyWeather.min_temp}°C
-            </div>
-            <div>
-              <span className="weather-param">Max:</span>
-              {dailyWeather.max_temp}°C
-            </div>
-            <div>
-              <span className="weather-param">Feels like:</span>
-              {dailyWeather.feels_like}°C
-            </div>
-          </div>
-        </div>
+      <div
+        className={`my-bg-lighter dw-details-container justify-content-between align-items-center fs-s fw-bold px-4 overflow-hidden ${
+          isOpen ? "dw-details-opened" : "dw-details-closed"
+        }`}
+      >
+        <WeatherDetails
+          containetClass="d-flex dw-details gap-2"
+          parameter="Description:"
+          parameterVal={props.dayWeather.description}
+        />
+
+        <WeatherDetails
+          containetClass="d-flex dw-details gap-2"
+          parameter="Temperature:"
+          parameterVal={`${props.dayWeather.temp} °C`}
+        />
+
+        <WeatherDetails
+          containetClass="d-flex dw-details gap-2"
+          parameter="Min:"
+          parameterVal={`${props.dayWeather.tempMin} °C`}
+        />
+
+        <WeatherDetails
+          containetClass="d-flex dw-details gap-2"
+          parameter="Max:"
+          parameterVal={`${props.dayWeather.tempMax} °C`}
+        />
+
+        <WeatherDetails
+          containetClass="d-flex dw-details gap-2"
+          parameter="Feels like:"
+          parameterVal={`${props.dayWeather.feelsLike} °C`}
+        />
       </div>
     </div>
   );
