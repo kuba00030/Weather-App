@@ -7,8 +7,8 @@ export const CurrentWeather = () => {
   const { weatherData } = useWeatherConext();
 
   return weatherData !== undefined ? (
-    <div className="cw-widgets-container d-flex flex-shrink-0 w-100 gap-4 ">
-      <div className="d-flex flex-row flex-grow-1 p-2">
+    <div className="cw-widgets-container d-flex flex-shrink-0 ">
+      <div className="d-flex flex-row flex-grow-1 p-2 ">
         <div className="d-flex flex-column justify-content-between">
           <WeatherDetails
             parameterVal={weatherData.location.city}

@@ -1,4 +1,4 @@
-@media screen and (0px <= width) {
+@media only screen and (min-width: 0px) {
   .cw-widgets-container {
     flex-direction: column;
   }
@@ -24,12 +24,12 @@
   }
 }
 
-@media screen and (0px <= width < 440px) {
+@media only screen and (max-width: 439px) {
   .cw-widget {
     grid-template-columns: 1fr;
   }
 }
-@media screen and (width >= 1200px) {
+@media only screen and (min-width: 1200px) {
   .cw-widgets-container {
     flex-direction: row;
   }

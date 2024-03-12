@@ -15,7 +15,7 @@
 .dw-details-closed {
   height: 0px;
 }
-@media screen and (900px >= width) {
+@media only screen and (max-width: 900px) {
   .dw-details-container {
     flex-direction: column;
   }

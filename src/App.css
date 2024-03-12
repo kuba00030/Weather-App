@@ -46,12 +46,7 @@
 }
 .weather-container {
   overflow-x: hidden;
-  overflow-y: hidden;
-}
-@media screen and (0px <= width) {
-  .weather-container {
-    overflow-y: auto;
-  }
+  overflow-y: auto;
 }
 
 .css-1u9des2-indicatorSeparator {

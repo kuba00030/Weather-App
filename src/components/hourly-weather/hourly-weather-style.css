@@ -1,13 +1,11 @@
-@media screen and (0px < width) {
-  .h-img {
-    width: 60px;
-    height: 60px;
-    background-size: cover;
-  }
-  .h-weather-details {
-    width: clamp(130px, 7.5vw, 150px);
-    height: clamp(150px, 10vw, 180px);
-  }
+.h-img {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+}
+.h-weather-details {
+  width: clamp(130px, 7.5vw, 150px);
+  height: clamp(150px, 10vw, 180px);
 }
 
 .hourly-weather-widget-animaiton {
