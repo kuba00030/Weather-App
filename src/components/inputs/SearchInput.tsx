@@ -1,5 +1,5 @@
 import { AsyncPaginate } from "react-select-async-paginate";
-import { rapidApi } from "../../API/.apiKeys";
+import { rapidApi } from "../../API/apiKeys";
 import { useState } from "react";
 import { Coords } from "../../hooks/useGetCoords";
 

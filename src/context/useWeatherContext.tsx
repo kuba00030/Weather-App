@@ -7,7 +7,7 @@ import {
 } from "../API/apiCalls";
 import useGetCoords, { Coords } from "../hooks/useGetCoords";
 import useGetWeatherOnCoords from "../hooks/useGetWeatherOnCoords";
-import { openWeatherKey } from "../API/.apiKeys";
+import { openWeatherKey } from "../API/apiKeys";
 
 export type ContextProviderProps = {
   children: React.ReactNode;
