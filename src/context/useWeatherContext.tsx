@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   CurrentWeather,
   DailyWeather,
@@ -37,9 +37,6 @@ export default function WeatherContextProvider({
   const [weatherData, setWeatherData] = useState<WeatherData | undefined>(
     undefined
   );
-  const [firstWeatherState, setFirstWeatherState] = useState<
-    WeatherData | undefined
-  >(undefined);
   const [searchVal, setSearchVal] = useState<Coords | undefined>(undefined);
 
   useEffect(() => {
@@ -58,13 +55,6 @@ export default function WeatherContextProvider({
           weather: { ...weatherData.weather },
           location: { ...weatherData.location },
         });
-
-        if (firstWeatherState === undefined) {
-          setFirstWeatherState({
-            weather: { ...weatherData.weather },
-            location: { ...weatherData.location },
-          });
-        }
       });
     }
   }, [coords]);

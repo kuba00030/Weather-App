@@ -1,46 +1,221 @@
-# Getting Started with Create React App
+# Content
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Project description](#project-description)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Code examples](#code-examples)
+  - [Custom hooks](#custom-hooks)
+    - [useGetCoords](#useGetCoords)
+    - [useGetWeatherOnCoords](#useGetWeatherOnCoords)
+    - [useUpdateHourlyDetails](#useUpdateHourlyDetails)
 
-## Available Scripts
+# Project description
 
-In the project directory, you can run:
+The application allows you to check the weather forecast for the user's location after locating it or for any place selected by the user.
+The weather forecast is available in the form of a current, hourly and daily forecast.
 
-### `npm start`
+# Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React with TypeScript
+- HTML
+- CSS
+- Framer Motion
+- React Bootstrap 2
+- Bootstrap 5
+- React select
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Installation
 
-### `npm test`
+- Use 'git clone https://github.com/kuba00030/Weather-App' in your terminal.
+- When the cloning process is completed, use 'npm install' in your terminal to install all dependencies.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Usage
 
-### `npm run build`
+- Go to https://kuba00030.github.io/Weather-App/
+- Wait for the application to get your location.
+- Type location you want to check forecast for and click search.
+- Read a forecast.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Code examples
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Custom hooks
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### useGetCoords
 
-### `npm run eject`
+```typescript
+export type Coords = {
+  lat: number;
+  lon: number;
+};
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+export default function useGetCoords() {
+  const [coords, setCoords] = useState<Coords | undefined>(undefined);
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  useEffect(() => {
+    const nav = navigator.geolocation;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    const successCallback = (position: GeolocationPosition) => {
+      setCoords({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+      });
+    };
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    const errorCallback = (error: GeolocationPositionError) => {
+      console.error(error.message);
+    };
 
-## Learn More
+    nav.getCurrentPosition(successCallback, errorCallback);
+  }, []);
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  return { coords };
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Description
+
+- useGetCoords hook is used to retrieve the user's geographic coordinates (latitude and longitude) using the browser's geolocation API and returns the coordinates.
+
+#### Usage
+
+```typescript
+const { coords } = useGetCoords();
+```
+
+### useGetWeatherOnCoords
+
+```typescript
+export default function useGetWeatherOnCoords() {
+  const getWeatherOnCoords = async (
+    apiWeatherUrl: string,
+    apiLocationUrl: string,
+    apiKey: string,
+    coords: Coords
+  ) => {
+    const weatherLink = `${apiWeatherUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`;
+    const locationLink = `${apiLocationUrl}lat=${coords.lat}&lon=${coords.lon}&units=metric&appid=${apiKey}`;
+
+    const weather = await getWeather(weatherLink);
+    const { location } = await getLocation(locationLink);
+
+    return { weather, location };
+  };
+
+  return { getWeatherOnCoords };
+}
+```
+
+#### Description
+
+- useGetWeatherOnCoords hook is used to retrieve weather data based on geographic coordinates.
+
+#### Usage
+
+```typescript
+const { coords } = useGetCoords();
+const { getWeatherOnCoords } = useGetWeatherOnCoords();
+
+useEffect(() => {
+  if (coords === undefined) {
+    window.alert(
+      "Let us detect your location. It may take a while. Press 'OK' and wait."
+    );
+  } else {
+    getWeatherOnCoords(
+      openWeatherKey.apiWeatherUrl,
+      openWeatherKey.apiLocationUrl,
+      openWeatherKey.apiKey,
+      coords
+    );
+  }
+}, [coords]);
+```
+
+### useUpdateHourlyDetails
+
+```typescript
+type HourlyWeather = {
+  hour: string;
+  temp: number;
+  icon: string;
+};
+
+const triggerAnimation = (index: number) => {
+  const element = document.querySelector(
+    `[data-animation=hw-animation-${index}]`
+  )!;
+  element.classList.remove("hourly-weather-widget-animaiton");
+  setTimeout(() => {
+    element.classList.add("hourly-weather-widget-animaiton");
+  }, 100 * index);
+};
+
+const updateDetails = (
+  index: number,
+  animationDuration: number,
+  setHourlyDetails: (hourlyDetails: HourlyWeather) => void,
+  hourlyDetails: HourlyWeather
+) => {
+  setTimeout(() => {
+    setHourlyDetails(hourlyDetails);
+  }, 100 * index + animationDuration / 2);
+};
+
+export const useUpdateHourlyDetails = (
+  index: number,
+  animationDuration: number,
+  hourlyDetails: HourlyWeather
+) => {
+  const { weatherData } = useWeatherConext();
+  const [details, setDetails] = useState<HourlyWeather>({
+    temp: 0,
+    icon: "",
+    hour: "",
+  });
+
+  useEffect(() => {
+    triggerAnimation(index);
+    updateDetails(index, animationDuration, setDetails, hourlyDetails);
+  }, [weatherData]);
+
+  return { details };
+};
+```
+
+#### Description
+
+- useUpdateHourlyDetails hook is responsible for updating weather details every hour depending on changes in weather data. Hook is used inside HWDetails (hourly weather details) component which displays weather details for each hour.
+- triggerAnimation takes an element based on the [data-animation=hw-animation-${index}] selector and adds an hourly-weather-widget-animaiton class to it to trigger the animation.
+- updateDetails sets a delay when updating details to match the animation.
+
+#### Usage
+
+```typescript
+type HWDetails = {
+  weather: HourlyWeather;
+  index: number;
+};
+
+export const HWDetails = (props: HWDetails) => {
+  const { details } = useUpdateHourlyDetails(props.index, 500, props.weather);
+
+  return (
+    <motion.div
+      className="h-weather-details my-bg-light hourly-weather-widget-animaiton d-flex flex-column justify-content-center text-center overflow-hidden rounded-3 gap-2 "
+      style={{ flexShrink: 0 }}
+      data-animation={`hw-animation-${props.index}`}
+    >
+      <WeatherIcon iconClass="h-img ms-auto me-auto" iconLink={details.icon} />
+      <WeatherDetails
+        parameterVal={details.hour}
+        parameterValClass="fs-s fw-bold "
+      />
+      <WeatherDetails
+        parameterVal={`${details.temp}°C`}
+        parameterValClass="fs-s fw-bold fc-gray"
+      />
+    </motion.div>
+  );
+};
+```
