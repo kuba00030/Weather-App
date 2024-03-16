@@ -44,7 +44,7 @@ export const getWeather = async (link: string) => {
         pressure: weatherData.current.pressure,
         humidity: weatherData.current.humidity,
         visibility: weatherData.current.visibility / 1000,
-        wind: weatherData.current.wind_speed,
+        wind: weatherData.current.wind_speed * 3.6,
         description: weatherData.current.weather[0].description,
         icon: weatherData.current.weather[0].icon,
       };
@@ -60,8 +60,9 @@ export const getWeather = async (link: string) => {
           };
         });
 
-      const dailyWeather: DailyWeather[] = weatherData.daily.map(
-        (weather: any): DailyWeather => {
+      const dailyWeather: DailyWeather[] = weatherData.daily
+        .splice(0, 7)
+        .map((weather: any): DailyWeather => {
           const { day, dayNumeric, month } = dateFormat(weather.dt);
           return {
             date: `${dayNumeric} ${month}, ${day}`,
@@ -71,8 +72,7 @@ export const getWeather = async (link: string) => {
             tempMax: weather.temp.max,
             feelsLike: weather.feels_like.day,
           };
-        }
-      );
+        });
 
       return { currentWeather, hourlyWeather, dailyWeather };
     });
