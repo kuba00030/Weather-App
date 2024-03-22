@@ -44,7 +44,7 @@ export const getWeather = async (link: string) => {
         pressure: weatherData.current.pressure,
         humidity: weatherData.current.humidity,
         visibility: weatherData.current.visibility / 1000,
-        wind: weatherData.current.wind_speed * 3.6,
+        wind: Math.round(weatherData.current.wind_speed * 3.6),
         description: weatherData.current.weather[0].description,
         icon: weatherData.current.weather[0].icon,
       };
